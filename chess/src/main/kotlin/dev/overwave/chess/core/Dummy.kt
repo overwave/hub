@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 class Dummy : ApplicationListener<ApplicationReadyEvent> {
     override fun onApplicationEvent(event: ApplicationReadyEvent) {
         val initializer = Initializer()
-        initializer.printChessBoardLikeLizunya()
+        initializer.fillBoardLikeAPro()
         initializer.printChessBoardLikePro()
 
         }
