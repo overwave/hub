@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build_install": "next build && install_to_server.sh",
     "start": "next start",
     "lint": "next lint"
   },

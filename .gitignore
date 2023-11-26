@@ -41,3 +41,5 @@ bin/
 .DS_Store
 
 package-lock.json
+chess_deploy
+hub_deploy
