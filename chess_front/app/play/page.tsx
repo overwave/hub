@@ -1,9 +1,10 @@
 'use client'
 
 import {useState} from 'react'
-import {Icon8CircleFill, Joystick, ClipboardData, ClockHistory, Gear} from 'react-bootstrap-icons';
-// import './style.css'
+import {ClipboardData, ClockHistory, Gear, Joystick} from 'react-bootstrap-icons';
+import './style.css'
 import Link from "next/link";
+import Board from "./board";
 
 
 export default function ChessMain() {
@@ -28,39 +29,40 @@ export default function ChessMain() {
                 <span>overwave.dev</span>
 
                 <div className="col-md-3 text-end">
-                    <button type="button" className="btn btn-outline-primary me-2">Login</button>
+                    <Link href="https://overwave.dev" type="button"
+                          className="btn btn-outline-primary me-2">Login</Link>
                     {/*<button type="button" className="btn btn-primary">Sign-up</button>*/}
                 </div>
             </header>
 
-            <main>
+            <div className="content-wrapper">
                 <nav className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li className="nav-item">
                             {/*<a href="#" className="nav-link active" aria-current="page">*/}
-                            <Link href="game" className="nav-link text-white">
+                            <Link href="play" className="nav-link text-white pb-3 pt-3">
                                 <Joystick size={24} className="me-3 align-text-bottom"/>
-                                <span className="fs-4">Играть 222!</span>
+                                <span className="fs-4">Играть!</span>
                             </Link>
                         </li>
                         <hr/>
                         <li className="nav-item">
-                            <a href="/game" className="nav-link text-white pb-3">
+                            <Link href="rating" className="nav-link text-white pb-3 pt-3">
                                 <ClipboardData size={24} className="me-3 align-text-bottom"/>
                                 <span className="fs-5">Рейтинг</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#" className="nav-link text-white pb-3">
+                            <Link href="history" className="nav-link text-white pb-3 pt-3">
                                 <ClockHistory size={24} className="me-3 align-text-bottom"/>
                                 <span className="fs-5">История</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#" className="nav-link text-white pb-3">
+                            <Link href="settings" className="nav-link text-white pb-3 pt-3">
                                 <Gear size={24} className="me-3 align-text-bottom"/>
                                 <span className="fs-5">Настройки</span>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                     <hr className=""/>
@@ -68,9 +70,9 @@ export default function ChessMain() {
                         <a href="#"
                            className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="" width="32" height="32"
+                            <img src="https://github.com/overwave.png" alt="" width="32" height="32"
                                  className="rounded-circle me-2"/>
-                            <strong>mdo</strong>
+                            <strong>overwave</strong>
                         </a>
                         <ul className="dropdown-menu dropdown-menu-dark text-small shadow"
                             aria-labelledby="dropdownUser1">
@@ -84,7 +86,8 @@ export default function ChessMain() {
                         </ul>
                     </div>
                 </nav>
-            </main>
+                <Board></Board>
+            </div>
         </div>
     )
 }
