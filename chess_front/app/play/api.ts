@@ -22,10 +22,10 @@ function getHost(): string {
         localStorage.getItem("local") ? 'http://localhost:8081' : '';
 }
 
-export function useBoard(): { board: BoardDto, isLoading: boolean, error: any } {
+export function useBoard(): { board?: BoardDto, isLoading: boolean, error: any } {
     let {data, error, isLoading} = useSWR(getHost() + '/chess/api/game/board', fetcher);
     return {
-        board: data,
+        board: data ? {board : new Map(Object.entries(data.board))} : undefined,
         isLoading,
         error
     };

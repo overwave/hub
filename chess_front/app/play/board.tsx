@@ -71,7 +71,7 @@ function Cells() {
                 <div key={address}
                      className={cellType + ' cell ' + font.className}>
                     {getCellText(column, row)}
-                    {mapToPiece(board.board[address]?.figure)}
+                    {mapToPiece(board!.board.get(address)?.figure)}
                 </div>
             );
         }
