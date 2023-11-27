@@ -4,6 +4,7 @@ import {Prompt} from 'next/font/google'
 import {ReactNode} from 'react'
 import {FigureDto, useBoard} from './api'
 import './board.css'
+import Image from "next/image";
 
 const font = Prompt({subsets: ['latin'], weight: ['500']})
 
@@ -60,6 +61,15 @@ function mapToPiece(figure?: FigureDto): string {
     }
 }
 
+function Figure(props: { figure?: FigureDto }) {
+    if (props.figure === undefined) {
+        return null;
+    }
+    const type = props.figure.type.toLowerCase();
+    const color = props.figure.color.toLowerCase();
+    return <Image src={`/chess/${type}_${color}.svg`} alt="Chess piece" fill className="p-1"/>;
+}
+
 function Cells() {
     const {board} = useBoard();
     const boardNodes: ReactNode[] = [];
@@ -69,9 +79,9 @@ function Cells() {
             const cellType = getCellType(column, row);
             boardNodes.push(
                 <div key={address}
-                     className={cellType + ' cell ' + font.className}>
+                     className={cellType + ' cell position-relative ' + font.className}>
                     {getCellText(column, row)}
-                    {mapToPiece(board!.board.get(address)?.figure)}
+                    {withinBoard(column) && withinBoard(row) && <Figure figure={board!.board.get(address)?.figure}/>}
                 </div>
             );
         }

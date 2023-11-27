@@ -2,11 +2,11 @@ import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-type BoardDto = {
+export type BoardDto = {
     board: Map<string, TileDto>
 }
 
-type TileDto = {
+export type TileDto = {
     address: string,
     figure: FigureDto,
 }

@@ -37,29 +37,28 @@ main {
     }
 
     .black {
-        background-color: #a183d9;
-        /*background-color: #2c3034;*/
+        background-color: var(--board-black);
         font-size: 32px;
     }
 
     .white {
-        background-color: #ecedee;
+        background-color: var(--board-white);
         font-size: 32px;
     }
 
     .board_border-top {
-        border-top: #2c3034 2px solid;
+        border-top: var(--board-black) 2px solid;
     }
 
     .board_border-bottom {
-        border-bottom: #2c3034 2px solid;
+        border-bottom: var(--board-black) 2px solid;
     }
 
     .board_border-left {
-        border-left: #2c3034 2px solid;
+        border-left: var(--board-black) 2px solid;
     }
 
     .board_border-right {
-        border-right: #2c3034 2px solid;
+        border-right: var(--board-black) 2px solid;
     }
 }
