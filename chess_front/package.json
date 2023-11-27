@@ -16,7 +16,8 @@
     "next": "14.0.3",
     "react": "^18",
     "react-bootstrap": "^2.9.1",
-    "react-bootstrap-icons": "^1.10.3"
+    "react-bootstrap-icons": "^1.10.3",
+    "swr": "^2.2.4"
   },
   "devDependencies": {
     "@types/node": "^20",

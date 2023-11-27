@@ -7,6 +7,24 @@ main {
         grid-column: span 10;
     }
 
+    .error {
+        grid-column: span 10;
+        grid-row: span 11;
+    }
+
+    .loading-placeholder {
+        grid-column: span 10;
+        grid-row: span 11;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .spinner-border {
+            width: min(10vh, 10vw);
+            height: min(10vh, 10vw);
+        }
+    }
+
     .cell {
         display: flex;
         justify-content: center;
@@ -19,11 +37,14 @@ main {
     }
 
     .black {
-        background-color: #2c3034;
+        background-color: #a183d9;
+        /*background-color: #2c3034;*/
+        font-size: 32px;
     }
 
     .white {
         background-color: #ecedee;
+        font-size: 32px;
     }
 
     .board_border-top {
