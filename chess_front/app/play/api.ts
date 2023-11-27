@@ -18,8 +18,8 @@ export type FigureDto = {
 
 function getHost(): string {
     return typeof window === 'undefined' ?
-        '' :
-        localStorage.getItem("local") ? 'http://localhost:8081' : '';
+        'https://overwave.dev' :
+        localStorage.getItem("local") ? 'http://localhost:8081' : 'https://overwave.dev';
 }
 
 export function useBoard(): { board?: BoardDto, isLoading: boolean, error: any } {
