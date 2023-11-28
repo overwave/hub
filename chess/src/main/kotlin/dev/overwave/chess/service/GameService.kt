@@ -19,9 +19,7 @@ class GameService(
     )
 
     fun getBoard(): BoardResponseDto {
-        val session = Session()
-        session.testField = System.currentTimeMillis().toString()
-        sessionRepository.save(session)
+        sessionRepository.save(Session(System.currentTimeMillis().toString()))
         println(sessionRepository.findAll())
 
         val tiles = mutableListOf<TileDto>()

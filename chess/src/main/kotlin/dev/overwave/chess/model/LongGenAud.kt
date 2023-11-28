@@ -11,18 +11,19 @@ import java.time.Instant
 
 
 @MappedSuperclass
-open class LongGenAud {
+open class LongGenAud(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = -1
+    val id: Long = -1,
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    var createdAt: Instant = Instant.now()
+    val createdAt: Instant = Instant.now(),
 
     @Version
     @Column(nullable = false)
     var updatedAt: Instant = Instant.now()
+) {
 
     override fun equals(other: Any?) = if (other !is LongGenAud) false else other.id == id
 
