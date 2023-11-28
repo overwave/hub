@@ -1,9 +1,12 @@
 package dev.overwave.chess.service
 
+import dev.overwave.chess.model.Session
 import org.springframework.stereotype.Service
 
 @Service
-class GameService {
+class GameService(
+    private val sessionRepository: SessionRepository
+) {
     private val figureLayout = mapOf(
         "a" to FigureType.ROOK,
         "b" to FigureType.KNIGHT,
@@ -16,6 +19,11 @@ class GameService {
     )
 
     fun getBoard(): BoardResponseDto {
+        val session = Session()
+        session.testField = System.currentTimeMillis().toString()
+        sessionRepository.save(session)
+        println(sessionRepository.findAll())
+
         val tiles = mutableListOf<TileDto>()
         tiles += figureLayout.map { (row, figure) ->
             TileDto("${row}8", FigureDto(FigureColor.BLACK, figure))
