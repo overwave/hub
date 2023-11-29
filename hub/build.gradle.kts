@@ -30,6 +30,7 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    implementation(kotlin("script-runtime"))
 }
 
 tasks.withType<KotlinCompile> {
