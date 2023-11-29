@@ -62,3 +62,8 @@ main {
         border-right: var(--board-black) 2px solid;
     }
 }
+
+main aside {
+    width: 20%;
+    background-color: #6c757d;
+}

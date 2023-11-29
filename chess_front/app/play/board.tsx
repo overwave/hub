@@ -92,7 +92,7 @@ function Cells() {
 export default function Board() {
     const {error, isLoading} = useBoard();
     return (
-        <main className="d-grid w-100">
+        <main className="d-grid mx-5">
             {error && <div className="error-message">{'' + error}</div>}
             {isLoading &&
                 <div className="loading-placeholder">

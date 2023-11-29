@@ -86,7 +86,11 @@ export default function ChessMain() {
                         </ul>
                     </div>
                 </nav>
-                <Board></Board>
+                <main className="d-flex flex-row justify-content-center w-100">
+                    <aside className="d-block">chat</aside>
+                    <Board></Board>
+                    <aside className="d-block">moves</aside>
+                </main>
             </div>
         </div>
     )
