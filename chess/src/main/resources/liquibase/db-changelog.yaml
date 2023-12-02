@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: table/session.sql
+  - include:
+      file: table/figure.sql
