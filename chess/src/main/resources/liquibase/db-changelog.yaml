@@ -1,5 +1,11 @@
 databaseChangeLog:
   - include:
+      file: table/user.sql
+  - include:
       file: table/session.sql
   - include:
       file: table/figure.sql
+  - include:
+      file: table/session_history.sql
+  - include:
+      file: table/session_message.sql

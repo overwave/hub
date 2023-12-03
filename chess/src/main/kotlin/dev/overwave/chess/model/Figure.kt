@@ -18,7 +18,11 @@ class Figure(
     @Enumerated(EnumType.STRING)
     val color: FigureColor,
 
-    val address: String,
+    val file: String,
+
+    val rank: Int,
+
+    val taken: Boolean,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "session_id")
@@ -27,6 +31,6 @@ class Figure(
 ) : LongGenAud() {
 
     override fun toString(): String {
-        return "Figure(id=$id, type=$type, color=$color, address='$address', session=${session.id})"
+        return "Figure(id=$id, type=$type, color=$color, address='$file$rank', taken='$taken', session=${session.id})"
     }
 }

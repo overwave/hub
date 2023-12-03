@@ -1,5 +1,6 @@
 package dev.overwave.chess.model
 
+import dev.overwave.chess.service.FigureType
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -8,22 +9,23 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 
 @Entity
-class Session(
+class SessionHistory(
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "white_player_id")
-    val whitePlayer: User,
+    @JoinColumn(name = "session_id")
+    val session: Session,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "black_player_id")
-    val blackPlayer: User,
+    @JoinColumn(name = "figure_id")
+    val figure: Figure,
+
+    val file: String,
+
+    val rank: Int,
 
     @Enumerated(EnumType.STRING)
-    val status: SessionStatus
+    val type: FigureType,
 
-    ) : LongGenAud() {
+    val taken: Boolean,
 
-    override fun toString(): String {
-        return "Session(whitePlayerId=$whitePlayer.id, blackPlayerId=$blackPlayer.id, status=$status)"
-    }
-}
+    ) : LongGenAud() {}
