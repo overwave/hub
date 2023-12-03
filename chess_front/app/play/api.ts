@@ -1,6 +1,22 @@
 import useSWR from "swr";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+class HttpError extends Error {
+    body: any;
+    status: number;
+
+    constructor(body: any, status: number) {
+        super(body?.message || 'An error occurred while fetching the data.');
+        this.body = body;
+        this.status = status;
+    }
+}
+
+const fetcher = (url: string) => fetch(url).then(async (res) => {
+    if (!res.ok) {
+        throw new HttpError(await res.json(), res.status)
+    }
+    return res.json();
+});
 
 export type BoardDto = {
     board: Map<string, TileDto>
@@ -25,7 +41,7 @@ function getHost(): string {
 export function useBoard(): { board?: BoardDto, isLoading: boolean, error: any } {
     let {data, error, isLoading} = useSWR(getHost() + '/chess/api/game/board', fetcher);
     return {
-        board: data ? {board : new Map(Object.entries(data.board))} : undefined,
+        board: data ? {board: new Map(Object.entries(data.board))} : undefined,
         isLoading,
         error
     };
