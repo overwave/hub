@@ -3,7 +3,10 @@
 const nextConfig = {
     output: 'export',
     basePath: '/chess',
-    images: {unoptimized: true}
+    images: {
+        unoptimized: true,
+        minimumCacheTTL: 60,
+    }
 }
 
 module.exports = nextConfig
