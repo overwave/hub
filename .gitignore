@@ -3,6 +3,7 @@ gradle/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+deploy.sh
 
 ### IntelliJ IDEA ###
 .idea
