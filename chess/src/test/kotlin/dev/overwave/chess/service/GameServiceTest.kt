@@ -18,10 +18,12 @@ class GameServiceTest(
             """
                 create table session
                 (
-                    id         bigserial,
-                    test_field text        not null,
-                    created_at timestamptz not null,
-                    updated_at timestamptz not null
+                    id              bigserial,
+                    black_player_id bigint,
+                    white_player_id bigint,
+                    status          text,
+                    created_at      timestamptz not null,
+                    updated_at      timestamptz not null
                 );
         """, mapOf<String, Any>()
         )

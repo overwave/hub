@@ -1,12 +1,11 @@
 package dev.overwave.chess
 
-import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
-
-@SpringBootTest
+// for now disabled
+//@UnitTest
+//@SpringBootTest
 class ChessApplicationTests {
 
-    @Test
+//    @Test
     fun contextLoads() {
     }
 

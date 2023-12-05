@@ -1,6 +1,5 @@
 package dev.overwave.chess.service
 
-import dev.overwave.chess.model.Session
 import org.springframework.stereotype.Service
 
 @Service
@@ -19,8 +18,8 @@ class GameService(
     )
 
     fun getBoard(): BoardResponseDto {
-        sessionRepository.save(Session(System.currentTimeMillis().toString()))
-        println(sessionRepository.findAll())
+//        sessionRepository.save(Session())
+//        println(sessionRepository.findAll())
 
         val tiles = mutableListOf<TileDto>()
         tiles += figureLayout.map { (row, figure) ->
