@@ -73,6 +73,7 @@ class GameServiceTest(
             )
         )
         assertThat(actualBoard).isEqualTo(expectedBoard)
+        assertThat(true).isFalse()
     }
 
     private infix fun FigureDto.at(address: String) = address to TileDto(address, this)
