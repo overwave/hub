@@ -1,0 +1,33 @@
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+# https://github.com/marketplace/actions/gradle-build-action
+
+name: CI with Gradle
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Gradle run kotlin tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Run gradle tests
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.4
+          arguments: test
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Package
+          path: build/libs
