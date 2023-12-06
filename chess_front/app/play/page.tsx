@@ -7,7 +7,7 @@ import Link from "next/link";
 import Board from "./board";
 
 
-export default function ChessMain() {
+export default function page() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
@@ -29,8 +29,8 @@ export default function ChessMain() {
                 <span>overwave.dev</span>
 
                 <div className="col-md-3 text-end">
-                    <Link href="https://overwave.dev" type="button"
-                          className="btn btn-outline-primary me-2">Login</Link>
+                    <Link href="login" type="button"
+                          className="btn btn-outline-primary me-2">Войти</Link>
                     {/*<button type="button" className="btn btn-primary">Sign-up</button>*/}
                 </div>
             </header>
