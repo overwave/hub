@@ -6,6 +6,7 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "user_")
 class User(
+    val ip: String,
     val name: String,
     val login: String,
     val password: String,

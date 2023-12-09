@@ -4,7 +4,8 @@ server:
   port: '8081'
 spring:
   liquibase:
-    enabled: false
+    enabled: true
+    change-log: 'classpath:liquibase/db-changelog.yaml'
   datasource:
     url: '${DB_URL}'
     username: '${DB_USERNAME}'

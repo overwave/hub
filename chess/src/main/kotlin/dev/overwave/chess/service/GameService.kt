@@ -1,9 +1,18 @@
 package dev.overwave.chess.service
 
+import dev.overwave.chess.dto.BoardResponseDto
+import dev.overwave.chess.dto.FigureDto
+import dev.overwave.chess.dto.GameSessionRequestDto
+import dev.overwave.chess.dto.GameSessionResponseDto
+import dev.overwave.chess.dto.TileDto
+import dev.overwave.chess.mapper.GameSessionMapper
+import dev.overwave.chess.model.SessionStatus
+import dev.overwave.chess.repository.GameSessionRepository
 import org.springframework.stereotype.Service
 
 @Service
 class GameService(
+    private val gameSessionMapper: GameSessionMapper,
     private val gameSessionRepository: GameSessionRepository
 ) {
     private val figureLayout = mapOf(
@@ -18,9 +27,6 @@ class GameService(
     )
 
     fun getBoard(): BoardResponseDto {
-//        sessionRepository.save(Session())
-//        println(sessionRepository.findAll())
-
         val tiles = mutableListOf<TileDto>()
         tiles += figureLayout.map { (row, figure) ->
             TileDto("${row}8", FigureDto(FigureColor.BLACK, figure))
@@ -33,5 +39,24 @@ class GameService(
             TileDto("${row}1", FigureDto(FigureColor.WHITE, figure))
         }
         return BoardResponseDto(tiles.associateBy { it.address })
+    }
+
+    fun getOpenSessions(): List<GameSessionResponseDto> {
+        val sessions = gameSessionRepository.findAllByStatus(SessionStatus.OPEN)
+        return sessions.map { gameSessionMapper.toGameSessionResponseDto(it) }
+    }
+
+    fun startGame(id: Int, gameSession: GameSessionRequestDto): GameSessionResponseDto {
+        val white: Int
+        val black: Int
+        if(gameSession.side == FigureColor.WHITE) {
+            white = id;
+            black = gameSession.against
+        } else {
+            white = gameSession.against
+            black = id
+        }
+        //sessionRepository.save(Session(-1, ))
+        TODO("Not yet implemented")
     }
 }

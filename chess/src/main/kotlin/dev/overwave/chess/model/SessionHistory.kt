@@ -12,8 +12,8 @@ import jakarta.persistence.ManyToOne
 class SessionHistory(
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "session_id")
-    val session: Session,
+    @JoinColumn(name = "game_session_id")
+    val gameSession: GameSession,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "figure_id")

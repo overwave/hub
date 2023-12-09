@@ -25,12 +25,12 @@ class Figure(
     val taken: Boolean,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "session_id")
-    val session: Session
+    @JoinColumn(name = "game_session_id")
+    val gameSession: GameSession
 
 ) : LongGenAud() {
 
     override fun toString(): String {
-        return "Figure(id=$id, type=$type, color=$color, address='$file$rank', taken='$taken', session=${session.id})"
+        return "Figure(id=$id, type=$type, color=$color, address='$file$rank', taken='$taken', session=${gameSession.id})"
     }
 }
