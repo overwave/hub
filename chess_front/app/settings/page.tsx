@@ -2,6 +2,6 @@
 
 import {redirect} from 'next/navigation'
 
-export default function page() {
+export default function Page() {
     return redirect('/play');
 }

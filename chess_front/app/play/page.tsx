@@ -7,7 +7,7 @@ import Link from "next/link";
 import Board from "./board";
 
 
-export default function page() {
+export default function Page() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
