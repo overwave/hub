@@ -1,0 +1,10 @@
+server:
+  http2:
+    enabled: true
+spring:
+# since liquibase is currently broken :(
+  liquibase:
+    enabled: false
+  datasource:
+    hikari:
+      schema: chess
