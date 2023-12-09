@@ -15,6 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
     provider = AutoConfigureEmbeddedDatabase.DatabaseProvider.ZONKY,
     refresh = AutoConfigureEmbeddedDatabase.RefreshMode.AFTER_CLASS
 )
-@TestPropertySource(locations = ["classpath:application.yml"])
+@TestPropertySource(locations = ["classpath:application.properties"])
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 annotation class UnitTest
