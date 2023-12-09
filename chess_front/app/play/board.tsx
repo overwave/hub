@@ -40,34 +40,13 @@ function getCellText(column: number, row: number): string {
     return '';
 }
 
-function mapToPiece(figure?: FigureDto): string {
-    if (!figure) {
-        return '';
-    }
-    const offset = figure.color === 'WHITE' ? 9812 : 9818;
-    switch (figure.type) {
-        case "KING":
-            return String.fromCharCode(offset);
-        case "QUEEN":
-            return String.fromCharCode(offset + 1);
-        case "ROOK":
-            return String.fromCharCode(offset + 2);
-        case "BISHOP":
-            return String.fromCharCode(offset + 3);
-        case "KNIGHT":
-            return String.fromCharCode(offset + 4);
-        case "PAWN":
-            return String.fromCharCode(offset + 5);
-    }
-}
-
 function Figure(props: { figure?: FigureDto }) {
     if (props.figure === undefined) {
         return null;
     }
     const type = props.figure.type.toLowerCase();
     const color = props.figure.color.toLowerCase();
-    return <Image src={`/chess/${type}_${color}.svg`} alt="Chess piece" fill className="p-1"/>;
+    return <Image src={`/chess/figure/${type}_${color}.svg`} alt="Chess piece" fill className="p-1"/>;
 }
 
 function Cells() {

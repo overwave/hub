@@ -1,0 +1,18 @@
+server:
+  http2:
+    enabled: true
+  port: '8081'
+spring:
+  liquibase:
+    enabled: false
+  datasource:
+    url: '${DB_URL}'
+    username: '${DB_USERNAME}'
+    password: '${DB_PASSWORD}'
+    hikari:
+      schema: chess
+  mvc:
+    static-path-pattern: /**
+  web:
+    resources:
+      static-locations: 'file:chess/static/'

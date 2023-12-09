@@ -2,6 +2,6 @@
 
 import {redirect} from 'next/navigation'
 
-export default function ChessMain() {
+export default function Page() {
     return redirect('/play');
 }

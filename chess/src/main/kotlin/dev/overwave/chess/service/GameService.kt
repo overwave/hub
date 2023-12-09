@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class GameService(
-    private val sessionRepository: SessionRepository
+    private val gameSessionRepository: GameSessionRepository
 ) {
     private val figureLayout = mapOf(
         "a" to FigureType.ROOK,
