@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import {getHost} from "@/app/utils";
 
 class HttpError extends Error {
     body: any;
@@ -11,7 +12,9 @@ class HttpError extends Error {
     }
 }
 
-const fetcher = (url: string) => fetch(url).then(async (res) => {
+const fetcher = (url: string) => fetch(url, {
+    credentials: 'include',
+}).then(async (res) => {
     console.log("request finished");
     if (!res.ok) {
         throw new HttpError(await res.json(), res.status)
@@ -31,12 +34,6 @@ export type TileDto = {
 export type FigureDto = {
     color: 'WHITE' | 'BLACK',
     type: 'PAWN' | 'KNIGHT' | 'BISHOP' | 'ROOK' | 'QUEEN' | 'KING',
-}
-
-function getHost(): string {
-    return typeof window === 'undefined' ?
-        'https://overwave.dev' :
-        localStorage.getItem("local") ? 'http://localhost:8081' : 'https://overwave.dev';
 }
 
 export function useBoard(): { board?: BoardDto, isLoading: boolean, error: any } {
