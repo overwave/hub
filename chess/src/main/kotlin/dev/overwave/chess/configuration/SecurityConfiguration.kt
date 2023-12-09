@@ -1,6 +1,8 @@
 package dev.overwave.chess.configuration
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import dev.overwave.chess.security.LoginDto
+import dev.overwave.chess.security.LoginStatus
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
