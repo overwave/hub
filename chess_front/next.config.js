@@ -5,7 +5,7 @@ const nextConfig = {
     basePath: '/chess',
     images: {
         unoptimized: true,
-        minimumCacheTTL: 60,
+        minimumCacheTTL: 86400,
     }
 }
 

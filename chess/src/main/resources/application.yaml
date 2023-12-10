@@ -25,3 +25,6 @@ spring:
   web:
     resources:
       static-locations: 'file:chess/static/'
+      cache:
+        cachecontrol:
+          max-age: 1d

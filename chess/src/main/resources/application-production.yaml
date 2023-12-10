@@ -4,3 +4,10 @@ server:
       timeout: 365d
       cookie:
         domain: 'overwave.dev'
+
+spring:
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          max-age: 30d
