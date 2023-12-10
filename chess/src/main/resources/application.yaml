@@ -12,6 +12,8 @@ spring:
     password: '${DB_PASSWORD}'
     hikari:
       schema: chess
+  session:
+    store-type: jdbc
   mvc:
     static-path-pattern: /**
   web:
