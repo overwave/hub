@@ -175,6 +175,7 @@ export default function Page() {
                             <button type="button" className="btn btn-lg btn-outline-success"
                                     onClick={(e) => {
                                         setStage('Login');
+                                        setSubStage('Idle');
                                         setInput(login);
                                     }}>
                                 <ArrowLeft aria-hidden="true"/>
@@ -185,7 +186,7 @@ export default function Page() {
                             className={clsx(styles.mainButton, 'w-100', 'btn', 'btn-lg', 'btn-success')}
                             type="submit">
                             {subStage != "Loading" ? "Далее" :
-                                <div className={styles.spinnerBorder} role="status">
+                                <div className={clsx(styles.spinnerBorder, 'spinner-border')} role="status">
                                     <span className="visually-hidden">Загрузка...</span>
                                 </div>
                             }
