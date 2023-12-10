@@ -7,8 +7,8 @@ import jakarta.persistence.Table
 @Table(name = "user_")
 class User(
     val ip: String,
-    val name: String,
+    var name: String,
     val login: String,
-    val password: String,
+    var password: String,
     val bot: Boolean,
 ) : LongGenAud()

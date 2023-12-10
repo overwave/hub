@@ -9,8 +9,8 @@ import jakarta.persistence.ManyToOne
 class SessionMessage(
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_session_id")
-    val gameSession: GameSession,
+    @JoinColumn(name = "session_id")
+    val session: Session,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

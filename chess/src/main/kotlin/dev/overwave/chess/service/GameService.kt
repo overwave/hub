@@ -2,18 +2,17 @@ package dev.overwave.chess.service
 
 import dev.overwave.chess.dto.BoardResponseDto
 import dev.overwave.chess.dto.FigureDto
-import dev.overwave.chess.dto.GameSessionRequestDto
-import dev.overwave.chess.dto.GameSessionResponseDto
+import dev.overwave.chess.dto.SessionResponseDto
+import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.dto.TileDto
-import dev.overwave.chess.mapper.GameSessionMapper
+import dev.overwave.chess.mapper.toSessionResponseDto
 import dev.overwave.chess.model.SessionStatus
-import dev.overwave.chess.repository.GameSessionRepository
+import dev.overwave.chess.repository.SessionRepository
 import org.springframework.stereotype.Service
 
 @Service
 class GameService(
-    private val gameSessionMapper: GameSessionMapper,
-    private val gameSessionRepository: GameSessionRepository
+    private val sessionRepository: SessionRepository
 ) {
     private val figureLayout = mapOf(
         "a" to FigureType.ROOK,
@@ -41,20 +40,20 @@ class GameService(
         return BoardResponseDto(tiles.associateBy { it.address })
     }
 
-    fun getOpenSessions(): List<GameSessionResponseDto> {
-        val sessions = gameSessionRepository.findAllByStatus(SessionStatus.OPEN)
-        return sessions.map { gameSessionMapper.toGameSessionResponseDto(it) }
+    fun getOpenSessions(): List<SessionResponseDto> {
+        val sessions = sessionRepository.findAllByStatus(SessionStatus.OPEN)
+        return sessions.map { toSessionResponseDto(it) }
     }
 
-    fun startGame(id: Int, gameSession: GameSessionRequestDto): GameSessionResponseDto {
+    fun startGame(playerId: Int, request: StartSessionRequestDto): SessionResponseDto {
         val white: Int
         val black: Int
-        if(gameSession.side == FigureColor.WHITE) {
-            white = id;
-            black = gameSession.against
+        if(request.side == FigureColor.WHITE) {
+            white = playerId;
+            black = request.against
         } else {
-            white = gameSession.against
-            black = id
+            white = request.against
+            black = playerId
         }
         //sessionRepository.save(Session(-1, ))
         TODO("Not yet implemented")

@@ -13,24 +13,24 @@ import jakarta.persistence.ManyToOne
 class Figure(
 
     @Enumerated(EnumType.STRING)
-    val type: FigureType,
+    var type: FigureType,
 
     @Enumerated(EnumType.STRING)
-    val color: FigureColor,
+    val side: FigureColor,
 
-    val file: String,
+    var file: String,
 
-    val rank: Int,
+    var rank: Int,
 
-    val taken: Boolean,
+    var taken: Boolean,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_session_id")
-    val gameSession: GameSession
+    @JoinColumn(name = "session_id")
+    val session: Session
 
 ) : LongGenAud() {
 
     override fun toString(): String {
-        return "Figure(id=$id, type=$type, color=$color, address='$file$rank', taken='$taken', session=${gameSession.id})"
+        return "Figure(id=$id)"
     }
 }

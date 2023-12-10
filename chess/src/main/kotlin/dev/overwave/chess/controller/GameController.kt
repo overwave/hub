@@ -1,8 +1,8 @@
 package dev.overwave.chess.controller
 
 import dev.overwave.chess.dto.BoardResponseDto
-import dev.overwave.chess.dto.GameSessionRequestDto
-import dev.overwave.chess.dto.GameSessionResponseDto
+import dev.overwave.chess.dto.SessionResponseDto
+import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.service.GameService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -24,12 +24,12 @@ class GameController(
     }
 
     @GetMapping("/open")
-    fun getOpenSessions(): List<GameSessionResponseDto> {
+    fun getOpenSessions(): List<SessionResponseDto> {
         return gameService.getOpenSessions()
     }
 
     @PostMapping("/start")
-    fun startGame(@RequestParam id: Int, @RequestBody session: GameSessionRequestDto): GameSessionResponseDto {
-        return gameService.startGame(id, session)
+    fun startGame(@RequestParam playerId: Int, @RequestBody request: StartSessionRequestDto): SessionResponseDto {
+        return gameService.startGame(playerId, request)
     }
 }
