@@ -1,0 +1,6 @@
+server:
+  servlet:
+    session:
+      timeout: 365d
+      cookie:
+        domain: 'overwave.dev'
