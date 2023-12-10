@@ -2,7 +2,7 @@
 
 import {useState} from 'react'
 import {ClipboardData, ClockHistory, Gear, Joystick} from 'react-bootstrap-icons';
-import './style.css'
+import styles from './styles.module.css'
 import Link from "next/link";
 import Board from "./board";
 
@@ -29,13 +29,11 @@ export default function Page() {
                 <span>overwave.dev</span>
 
                 <div className="col-md-3 text-end">
-                    <Link href="login" type="button"
-                          className="btn btn-outline-primary me-2">Войти</Link>
-                    {/*<button type="button" className="btn btn-primary">Sign-up</button>*/}
+                    <Link href="login" type="button" className="btn btn-outline-primary me-2">Войти</Link>
                 </div>
             </header>
 
-            <div className="content-wrapper">
+            <div className={styles.contentWrapper}>
                 <nav className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li className="nav-item">

@@ -1,6 +1,6 @@
 'use client'
 
-import './style.css'
+import styles from './styles.module.css'
 import {FormEvent, useState} from "react";
 import {clsx} from 'clsx';
 import {getHost} from "@/app/utils";
@@ -141,19 +141,19 @@ export default function Page() {
     }
 
     return (
-        <div className="form-container">
+        <div className={styles.formContainer}>
             <main className="border border-success rounded-3">
                 <form onSubmit={handleInput}>
                     <h1 className="h1 mb-3">♟︎</h1>
-                    <div className="prompt-label">
+                    <div className={styles.promptLabel}>
                         <div
-                            className={clsx('prompt-text', stage == 'Login' ? 'opacity-100' : 'opacity-0')}>
+                            className={clsx(styles.promptText, stage == 'Login' ? 'opacity-100' : 'opacity-0')}>
                             Введите логин
                         </div>
-                        <div className={clsx('prompt-text', stage == 'Password' ? 'opacity-100' : 'opacity-0')}>
+                        <div className={clsx(styles.promptText, stage == 'Password' ? 'opacity-100' : 'opacity-0')}>
                             Введите пароль
                         </div>
-                        <div className={clsx('prompt-text', stage == 'Registration' ? 'opacity-100' : 'opacity-0')}>
+                        <div className={clsx(styles.promptText, stage == 'Registration' ? 'opacity-100' : 'opacity-0')}>
                             Придумайте пароль
                         </div>
                     </div>
@@ -182,10 +182,10 @@ export default function Page() {
                         }
                         <button
                             disabled={subStage == "Loading"}
-                            className="main-button w-100 btn btn-lg btn-success "
+                            className={clsx(styles.mainButton, 'w-100', 'btn', 'btn-lg', 'btn-success')}
                             type="submit">
                             {subStage != "Loading" ? "Далее" :
-                                <div className="spinner-border" role="status">
+                                <div className={styles.spinnerBorder} role="status">
                                     <span className="visually-hidden">Загрузка...</span>
                                 </div>
                             }

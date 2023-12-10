@@ -1,5 +1,5 @@
 
-.content-wrapper {
+.contentWrapper {
     display: flex;
     flex-wrap: nowrap;
     height: 100vh;
@@ -9,6 +9,6 @@
     overflow-y: hidden;
 }
 
-.content-wrapper nav {
+.contentWrapper nav {
     width: 300px;
 }
