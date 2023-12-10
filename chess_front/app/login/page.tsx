@@ -1,10 +1,11 @@
 'use client'
 
-import './style.css'
+import styles from './styles.module.css'
 import {FormEvent, useState} from "react";
 import {clsx} from 'clsx';
 import {getHost} from "@/app/utils";
 import {useRouter} from 'next/navigation';
+import {ArrowLeft} from 'react-bootstrap-icons';
 
 type Stage = "Login" | "Registration" | "Password";
 type LoginStage = "Idle" | "Loading" | "Next" | "ServerError" | "EmptyLoginError";
@@ -140,45 +141,56 @@ export default function Page() {
     }
 
     return (
-        <div className="form-container">
+        <div className={styles.formContainer}>
             <main className="border border-success rounded-3">
                 <form onSubmit={handleInput}>
                     <h1 className="h1 mb-3">♟︎</h1>
-                    <div className="prompt-label">
+                    <div className={styles.promptLabel}>
                         <div
-                            className={clsx('prompt-text', stage == 'Login' ? 'opacity-100' : 'opacity-0')}>
+                            className={clsx(styles.promptText, stage == 'Login' ? 'opacity-100' : 'opacity-0')}>
                             Введите логин
                         </div>
-                        <div className={clsx('prompt-text', stage == 'Password' ? 'opacity-100' : 'opacity-0')}>
+                        <div className={clsx(styles.promptText, stage == 'Password' ? 'opacity-100' : 'opacity-0')}>
                             Введите пароль
                         </div>
-                        <div className={clsx('prompt-text', stage == 'Registration' ? 'opacity-100' : 'opacity-0')}>
+                        <div className={clsx(styles.promptText, stage == 'Registration' ? 'opacity-100' : 'opacity-0')}>
                             Придумайте пароль
                         </div>
                     </div>
 
                     <div className="form-floating mb-4">
-                        <input type={stage == 'Password' ? "password" : "text"} id="input" placeholder="overwave"
+                        <input type={stage == 'Login' ? "text" : "password"} id="input" placeholder="overwave"
                                className={'form-control' + (getError() ? ' is-invalid' : '')}
                                value={input}
                                onChange={(e) => {
                                    setInput(e.target.value);
                                    setSubStage("Idle");
                                }}/>
-                        <label htmlFor="input">Логин</label>
+                        <label htmlFor="input">{stage == 'Login' ? 'Логин' : 'Пароль'}</label>
                         <div className="invalid-feedback">{getError()}</div>
                     </div>
 
-                    <button
-                        disabled={subStage == "Loading"}
-                        className="w-100 btn btn-lg btn-success"
-                        type="submit">
-                        {subStage != "Loading" ? "Далее" :
-                            <div className="spinner-border" role="status">
-                                <span className="visually-hidden">Загрузка...</span>
-                            </div>
+                    <div className="btn-group w-100" role="group" aria-label="Login form controls">
+                        {stage != 'Login' &&
+                            <button type="button" className="btn btn-lg btn-outline-success"
+                                    onClick={(e) => {
+                                        setStage('Login');
+                                        setInput(login);
+                                    }}>
+                                <ArrowLeft aria-hidden="true"/>
+                            </button>
                         }
-                    </button>
+                        <button
+                            disabled={subStage == "Loading"}
+                            className={clsx(styles.mainButton, 'w-100', 'btn', 'btn-lg', 'btn-success')}
+                            type="submit">
+                            {subStage != "Loading" ? "Далее" :
+                                <div className={styles.spinnerBorder} role="status">
+                                    <span className="visually-hidden">Загрузка...</span>
+                                </div>
+                            }
+                        </button>
+                    </div>
                 </form>
             </main>
             <footer className="fixed-bottom">
