@@ -52,17 +52,31 @@ export default function Page() {
         setSubStage("Loading");
         fetch(getHost() + "/chess/api/user/register", {
             method: "POST",
-            body: JSON.stringify({login, password})
+            credentials: 'include',
+            body: JSON.stringify({login, password}),
+            headers: {
+                "Content-Type": "application/json",
+            },
         })
-            .then<CheckUserResponse>((response) => {
+            .then((response) => {
                 if (!response.ok) {
                     throw new Error("failed to register");
                 }
-                return response.json();
+                const formData = new FormData();
+                formData.append('username', login);
+                formData.append('password', password);
+
+                return fetch(getHost() + "/chess/api/user/login", {
+                    method: "POST",
+                    body: formData,
+                    credentials: 'include',
+                });
             })
-            .then(({exists}) => {
-                setSubStage("Idle");
-                exists ? setStage("Password") : setStage("Registration");
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("failed to login");
+                }
+                router.push("/");
             })
             .catch(() => setSubStage("ServerError"));
     }
@@ -90,7 +104,6 @@ export default function Page() {
             })
             .then(({result}) => {
                 if (result == "SUCCESS") {
-                    // setSubStage("Idle");
                     router.push("/");
                 } else {
                     setSubStage("WrongPasswordError");
