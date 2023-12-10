@@ -2,9 +2,9 @@ server:
   http2:
     enabled: true
 spring:
-# since liquibase is currently broken :(
   liquibase:
-    enabled: false
+    enabled: true
+    change-log: 'classpath:liquibase/db-changelog.yaml'
   datasource:
     hikari:
       schema: chess
