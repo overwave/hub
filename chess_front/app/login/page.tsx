@@ -97,7 +97,7 @@ export default function Page() {
             credentials: 'include',
         })
             .then<AuthenticateResponse>((response) => {
-                if (!response.ok) {
+                if (!response.ok && response.status != 403) {
                     throw new Error("failed to login");
                 }
                 return response.json();

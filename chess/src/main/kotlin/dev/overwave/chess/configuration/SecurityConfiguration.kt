@@ -45,6 +45,7 @@ class SecurityConfiguration(
             }
             it.failureHandler { _, response, _ ->
                 response.writer.write(objectMapper.writeValueAsString(LoginDto(LoginStatus.FAILED)))
+                response.status = 403
             }
             it.permitAll()
         }.logout {

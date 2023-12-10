@@ -15,7 +15,6 @@ class HttpError extends Error {
 const fetcher = (url: string) => fetch(url, {
     credentials: 'include',
 }).then(async (res) => {
-    console.log("request finished");
     if (!res.ok) {
         throw new HttpError(await res.json(), res.status)
     }
