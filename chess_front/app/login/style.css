@@ -37,3 +37,7 @@ main {
     width: 1em;
     height: 1em;
 }
+
+button + .main-button {
+    padding-right: calc(16px * 3 + 1em);
+}
