@@ -1,33 +1,16 @@
 package dev.overwave.chess.service
 
+import dev.overwave.chess.dto.BoardResponseDto
+import dev.overwave.chess.dto.FigureDto
+import dev.overwave.chess.dto.TileDto
 import dev.overwave.chess.misc.UnitTest
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 
 @UnitTest
 class GameServiceTest(
-    private val jdbcTemplate: NamedParameterJdbcTemplate,
     private val gameService: GameService,
 ) {
-    @BeforeEach
-    fun setUp() {
-        // since liquibase is currently broken :(
-        jdbcTemplate.update(
-            """
-                create table session
-                (
-                    id              bigserial,
-                    black_player_id bigint,
-                    white_player_id bigint,
-                    status          text,
-                    created_at      timestamptz not null,
-                    updated_at      timestamptz not null
-                );
-        """, mapOf<String, Any>()
-        )
-    }
 
     @Test
     fun testGameService() {
@@ -51,7 +34,6 @@ class GameServiceTest(
                 FigureDto(FigureColor.WHITE, FigureType.PAWN) at "f2",
                 FigureDto(FigureColor.WHITE, FigureType.PAWN) at "g2",
                 FigureDto(FigureColor.WHITE, FigureType.PAWN) at "h2",
-
 
                 FigureDto(FigureColor.BLACK, FigureType.ROOK) at "a8",
                 FigureDto(FigureColor.BLACK, FigureType.KNIGHT) at "b8",

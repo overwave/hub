@@ -1,11 +1,16 @@
 databaseChangeLog:
   - include:
       file: table/user.sql
+      relativeToChangelogFile: true
   - include:
       file: table/session.sql
+      relativeToChangelogFile: true
   - include:
       file: table/figure.sql
+      relativeToChangelogFile: true
   - include:
       file: table/session_history.sql
+      relativeToChangelogFile: true
   - include:
       file: table/session_message.sql
+      relativeToChangelogFile: true

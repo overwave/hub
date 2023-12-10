@@ -1,4 +1,4 @@
-package dev.overwave.chess.service
+package dev.overwave.chess.dto
 
 data class TileDto(
     val address: String,
