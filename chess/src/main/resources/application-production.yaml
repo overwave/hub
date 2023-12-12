@@ -1,7 +1,7 @@
 server:
   servlet:
     session:
-      timeout: 365d
+      timeout: 1h
       cookie:
         domain: 'overwave.dev'
 
