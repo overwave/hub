@@ -91,6 +91,7 @@ export default function Page() {
         const formData = new FormData();
         formData.append('username', login);
         formData.append('password', password);
+        formData.append('remember-me', 'true');
 
         fetch(getHost() + "/chess/api/user/login", {
             method: "POST",

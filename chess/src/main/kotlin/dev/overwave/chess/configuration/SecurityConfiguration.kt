@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import java.util.concurrent.TimeUnit
 
 
 @Profile("!test")
@@ -54,6 +55,11 @@ class SecurityConfiguration(
             it.permitAll()
         }.csrf {
             it.disable() // TODO enable
+        }.rememberMe {
+            it.rememberMeCookieName("logged_id")
+            it.tokenValiditySeconds(TimeUnit.DAYS.toSeconds(30).toInt())
+            it.useSecureCookie(true)
+            it.key("secret")
         }.build()
     }
 
