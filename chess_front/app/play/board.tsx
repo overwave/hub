@@ -17,9 +17,9 @@ function getCellType(column: number, row: number): string {
     } else if (column === 8 && withinBoard(row)) {
         classes.push('board_border-right');
     }
-    if (row === 1 && withinBoard(column)) {
+    if (row === 8 && withinBoard(column)) {
         classes.push('board_border-top');
-    } else if (row === 8 && withinBoard(column)) {
+    } else if (row === 1 && withinBoard(column)) {
         classes.push('board_border-bottom');
     }
     if (withinBoard(column) && withinBoard(row)) {
@@ -52,7 +52,7 @@ function Figure(props: { figure?: FigureDto }) {
 function Cells() {
     const {board} = useBoard();
     const boardNodes: ReactNode[] = [];
-    for (let row = 0; row <= 9; row++) {
+    for (let row = 9; row >= 0; row--) {
         for (let column = 0; column <= 9; column++) {
             const address = String.fromCharCode(96 + column) + row;
             const cellType = getCellType(column, row);
