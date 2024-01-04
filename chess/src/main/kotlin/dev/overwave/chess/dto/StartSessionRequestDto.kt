@@ -4,7 +4,7 @@ import dev.overwave.chess.service.FigureColor
 
 class StartSessionRequestDto (
     val side: FigureColor,
-    val against: Int
+    val against: Long?
 ) {
 
 }
