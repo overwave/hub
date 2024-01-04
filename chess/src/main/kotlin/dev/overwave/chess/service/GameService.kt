@@ -6,13 +6,16 @@ import dev.overwave.chess.dto.SessionResponseDto
 import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.dto.TileDto
 import dev.overwave.chess.mapper.toSessionResponseDto
+import dev.overwave.chess.model.Session
 import dev.overwave.chess.model.SessionStatus
 import dev.overwave.chess.repository.SessionRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
 class GameService(
-    private val sessionRepository: SessionRepository
+    private val sessionRepository: SessionRepository,
+    private val userRepository: UserRepository
 ) {
     private val figureLayout = mapOf(
         "a" to FigureType.ROOK,
@@ -45,9 +48,9 @@ class GameService(
         return sessions.map { toSessionResponseDto(it) }
     }
 
-    fun startGame(playerId: Int, request: StartSessionRequestDto): SessionResponseDto {
-        val white: Int
-        val black: Int
+    fun startGame(playerId: Long, request: StartSessionRequestDto): SessionResponseDto {
+        val white: Long?
+        val black: Long?
         if(request.side == FigureColor.WHITE) {
             white = playerId;
             black = request.against
@@ -55,7 +58,10 @@ class GameService(
             white = request.against
             black = playerId
         }
-        //sessionRepository.save(Session(-1, ))
-        TODO("Not yet implemented")
+        val whitePlayer = userRepository.findByIdOrNull(white)
+        val blackPlayer = userRepository.findByIdOrNull(black)
+
+        val session = sessionRepository.save(Session(whitePlayer, blackPlayer, SessionStatus.OPEN))
+        return toSessionResponseDto(session);
     }
 }

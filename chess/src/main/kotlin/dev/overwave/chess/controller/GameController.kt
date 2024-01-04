@@ -30,7 +30,7 @@ class GameController(
     }
 
     @PostMapping("/start")
-    fun startGame(@RequestParam playerId: Int, @RequestBody request: StartSessionRequestDto): SessionResponseDto {
+    fun startGame(@RequestParam playerId: Long, @RequestBody request: StartSessionRequestDto): SessionResponseDto {
         return gameService.startGame(playerId, request)
     }
 }
