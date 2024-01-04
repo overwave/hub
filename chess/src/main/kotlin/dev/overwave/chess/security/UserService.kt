@@ -1,5 +1,6 @@
 package dev.overwave.chess.security
 
+import dev.overwave.chess.dto.UserDto
 import dev.overwave.chess.model.User
 import dev.overwave.chess.service.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
@@ -16,7 +17,7 @@ class UserService(
 
     override fun loadUserByUsername(login: String): UserDetails {
         val user = userRepository.findByLogin(login) ?: throw UsernameNotFoundException("User not found")
-        return UserDto(user.login, user.password, listOf())
+        return UserDetailsDto(user.login, user.password, listOf())
     }
 
     fun checkUserExists(login: String): CheckUserDto {
@@ -35,5 +36,10 @@ class UserService(
                 bot = false
             )
         )
+    }
+
+    fun selfInfo(login: String): UserDto {
+        val user = userRepository.findByLogin(login) ?: throw UserNotExistsException(login)
+        return UserDto(user.login)
     }
 }

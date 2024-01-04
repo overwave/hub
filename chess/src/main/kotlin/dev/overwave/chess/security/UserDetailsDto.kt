@@ -3,7 +3,7 @@ package dev.overwave.chess.security
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-data class UserDto(
+data class UserDetailsDto(
     val login: String,
     private val password: String,
     private val authorities: List<GrantedAuthority>,
