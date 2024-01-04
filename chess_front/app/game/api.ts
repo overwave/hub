@@ -43,3 +43,14 @@ export function useBoard(): { board?: BoardDto, isLoading: boolean, error: any }
         error
     };
 }
+
+export type UserDto = {
+    login: string,
+}
+
+export async function useUser(): Promise<UserDto | undefined> {
+    return fetch(getHost() + "/chess/api/user/me", {
+        credentials: 'include',
+    }).then((response) => response.ok ? response.json() : Promise.resolve(undefined))
+        .catch(() => undefined);
+}
