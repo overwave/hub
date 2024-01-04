@@ -36,6 +36,7 @@ class SecurityConfiguration(
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         return http.authorizeHttpRequests {
+            it.requestMatchers("/chess/api/user/me").authenticated()
             it.anyRequest().permitAll()
         }.httpBasic(withDefaults()).cors {
         }.formLogin {
