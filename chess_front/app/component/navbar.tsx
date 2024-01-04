@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import {useState} from "react";
-import {UserDto, useUser} from "@/app/play/api";
+import {UserDto, useUser} from "@/app/game/api";
 import {BoxArrowUpRight} from 'react-bootstrap-icons';
 
 export default function Navbar() {
