@@ -2,10 +2,10 @@ package dev.overwave.chess.dto
 
 import dev.overwave.chess.model.SessionStatus
 
-class SessionResponseDto (
+data class SimpleSessionResponseDto (
     val id: Long,
-    val white: String?,
-    val black: String?,
+    // val whiteSideLogin: String?,
+    // val blackSideLogin: String?,
     val status: SessionStatus
 ) {
 

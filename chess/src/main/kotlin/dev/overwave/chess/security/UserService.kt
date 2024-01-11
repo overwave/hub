@@ -2,7 +2,7 @@ package dev.overwave.chess.security
 
 import dev.overwave.chess.dto.UserDto
 import dev.overwave.chess.model.User
-import dev.overwave.chess.service.UserRepository
+import dev.overwave.chess.repository.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
