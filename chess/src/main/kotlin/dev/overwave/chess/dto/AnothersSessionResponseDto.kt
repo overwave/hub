@@ -7,8 +7,8 @@ import dev.overwave.chess.service.FigureColor
 
 data class AnothersSessionResponseDto(
     val id: Long,
-    val white: String?,
-    val black: String?,
+    val white: String,
+    val black: String,
     val side: FigureColor,
     val status: SessionStatus,
     val board: BoardResponseDto,

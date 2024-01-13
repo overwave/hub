@@ -113,8 +113,6 @@ class GameServiceTest() {
             sessionRepository.findAllByStatus(SessionStatus.OPEN)
         }
         assertThat(actual.status).isEqualTo(SessionStatus.OPEN)
-        // assertThat(actual.whiteSideLogin).isEqualTo(user1.ip)
-        // assertThat(actual.blackSideLogin).isEqualTo(null)
     }
 
     @Test
@@ -140,8 +138,6 @@ class GameServiceTest() {
         }
 
         assertThat(actual.status).isEqualTo(SessionStatus.OPEN)
-        // assertThat(actual.whiteSideLogin).isEqualTo(user1.ip)
-        // assertThat(actual.blackSideLogin).isEqualTo(null)
     }
 
     @Test
@@ -220,8 +216,6 @@ class GameServiceTest() {
         }
 
         assertThat(actual.status).isEqualTo(SessionStatus.IN_PROGRESS)
-        // assertThat(actual.whiteSideLogin).isEqualTo(user1.login)
-        // assertThat(actual.blackSideLogin).isEqualTo(bot.login)
     }
 
     @Test
@@ -254,8 +248,6 @@ class GameServiceTest() {
         }
 
         assertThat(actual.status).isEqualTo(SessionStatus.IN_PROGRESS)
-        // assertThat(actual.whiteSideLogin).isEqualTo(user1.login)
-        // assertThat(actual.blackSideLogin).isEqualTo(user2.login)
     }
 
     @Test
