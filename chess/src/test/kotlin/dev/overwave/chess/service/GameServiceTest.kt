@@ -7,7 +7,6 @@ import dev.overwave.chess.dto.TileDto
 import dev.overwave.chess.exception.SessionNotFoundException
 import dev.overwave.chess.exception.SessionNotOpenedException
 import dev.overwave.chess.exception.UserNotFoundException
-import dev.overwave.chess.misc.UnitTest
 import dev.overwave.chess.model.Session
 import dev.overwave.chess.model.SessionStatus
 import dev.overwave.chess.model.User
@@ -25,7 +24,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-@UnitTest
 class GameServiceTest() {
 
     private val user2: User = User("login2", "name2", "ip2", "password2", false)
