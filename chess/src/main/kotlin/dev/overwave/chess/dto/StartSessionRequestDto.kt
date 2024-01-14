@@ -6,6 +6,4 @@ import dev.overwave.chess.service.Opponent
 class StartSessionRequestDto (
     val side: FigureColor,
     val opponent: Opponent
-) {
-
-}
+)

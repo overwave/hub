@@ -12,5 +12,4 @@ data class PlayableSessionResponseDto(
     val board: BoardResponseDto,
     val turnHistory: List<SessionHistoryDto>,
     val chatHistory: List<SessionMessageDto>
-) {
-}
+)

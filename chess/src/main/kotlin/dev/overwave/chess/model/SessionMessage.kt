@@ -18,5 +18,4 @@ class SessionMessage(
 
     val payload: String
 
-) : LongGenAud() {
-}
+) : LongGenAud()

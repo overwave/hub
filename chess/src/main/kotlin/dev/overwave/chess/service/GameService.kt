@@ -19,7 +19,7 @@ import dev.overwave.chess.repository.findByIdOrThrow
 import dev.overwave.chess.repository.findByLoginOrThrow
 import org.springframework.stereotype.Service
 
-const val BOT_LOGIN: String = "bot"
+private const val BOT_LOGIN: String = "bot"
 
 @Service
 class GameService(

@@ -20,6 +20,7 @@ import dev.overwave.chess.repository.findByIdOrThrow
 import dev.overwave.chess.repository.findByLoginOrThrow
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -109,7 +110,7 @@ class GameServiceTest() {
 
         val actual = gameService.getOpenSessions().single()
 
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             sessionRepository.findAllByStatus(SessionStatus.OPEN)
         }
         assertThat(actual.status).isEqualTo(SessionStatus.OPEN)
@@ -130,10 +131,10 @@ class GameServiceTest() {
 
         val actual = gameService.startGame(login, request)
 
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             userRepository.findByLoginOrThrow(login)
         }
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             sessionRepository.save(getOpenedSession())
         }
 
@@ -151,10 +152,10 @@ class GameServiceTest() {
 
         assertThrows<UserNotFoundException> { gameService.startGame(login, request) }
 
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             userRepository.findByLoginOrThrow(login)
         }
-        io.mockk.verify(exactly = 0) {
+        verify(exactly = 0) {
             sessionRepository.save(any())
         }
     }
@@ -175,13 +176,13 @@ class GameServiceTest() {
 
         assertThrows<UserNotFoundException> { gameService.startGame(login, request) }
 
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             userRepository.findByLoginOrThrow(login)
         }
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             userRepository.findByLoginOrThrow(bot.login)
         }
-        io.mockk.verify(exactly = 0) {
+        verify(exactly = 0) {
             sessionRepository.save(any())
         }
     }
@@ -205,13 +206,13 @@ class GameServiceTest() {
 
         val actual = gameService.startGame(login, request)
 
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             userRepository.findByLoginOrThrow(login)
         }
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             userRepository.findByLoginOrThrow("bot")
         }
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             sessionRepository.save(getSessionWithBot())
         }
 
@@ -237,13 +238,13 @@ class GameServiceTest() {
 
         val actual = gameService.joinSession(login, sessionId)
 
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             userRepository.findByLoginOrThrow(login)
         }
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             sessionRepository.findByIdOrThrow(sessionId)
         }
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             sessionRepository.save(getSessionWithPlayer())
         }
 
@@ -261,10 +262,10 @@ class GameServiceTest() {
 
         assertThrows<UserNotFoundException> { gameService.joinSession(login, sessionId) }
 
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             userRepository.findByLoginOrThrow(login)
         }
-        io.mockk.verify(exactly = 0) {
+        verify(exactly = 0) {
             sessionRepository.save(any())
         }
     }
@@ -284,13 +285,13 @@ class GameServiceTest() {
 
         assertThrows<SessionNotFoundException> { gameService.joinSession(login, sessionId) }
 
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             userRepository.findByLoginOrThrow(login)
         }
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             sessionRepository.findByIdOrThrow(sessionId)
         }
-        io.mockk.verify(exactly = 0) {
+        verify(exactly = 0) {
             sessionRepository.save(any())
         }
     }
@@ -310,13 +311,13 @@ class GameServiceTest() {
 
         assertThrows<SessionNotOpenedException> { gameService.joinSession(login, sessionId) }
 
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             userRepository.findByLoginOrThrow(login)
         }
-        io.mockk.verify(exactly = 1) {
+        verify(exactly = 1) {
             sessionRepository.findByIdOrThrow(sessionId)
         }
-        io.mockk.verify(exactly = 0) {
+        verify(exactly = 0) {
             sessionRepository.save(any())
         }
     }

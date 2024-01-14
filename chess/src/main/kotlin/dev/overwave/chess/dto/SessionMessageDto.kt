@@ -4,5 +4,4 @@ data class SessionMessageDto(
     val sessionId: Long,
     val login: String,
     val payload: String
-) {
-}
+)
