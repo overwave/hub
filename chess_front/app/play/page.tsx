@@ -8,11 +8,11 @@ import {X} from 'react-bootstrap-icons';
 import {clsx} from 'clsx';
 import Link from "next/link";
 import Lobby from "@/app/game/lobby";
+import Board from "@/app/game/board";
 
 export default function Page() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-    const img = null;
     return (
         <div className="h-100">
             <Navbar></Navbar>
@@ -23,7 +23,7 @@ export default function Page() {
                     </div>
                     <div className={clsx(styles.demoGame, "col-sm-8 border text-center col")}>
                         <div className="row">
-                            <div>{img}</div>
+                            <Board></Board>
                         </div>
                         <footer className="row">
                             <div>
@@ -52,5 +52,5 @@ export default function Page() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

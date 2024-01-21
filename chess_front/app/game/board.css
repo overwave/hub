@@ -1,11 +1,7 @@
 main {
-    grid-template-columns: 24px repeat(8, min(7vw, 7vh)) 24px;
-    grid-template-rows: 12% 24px repeat(8, min(7vw, 7vh)) 24px;
+    grid-template-columns: 24px repeat(8, min(5vw, 5vh)) 24px;
+    grid-template-rows: 24px repeat(8, min(5vw, 5vh)) 24px;
     justify-content: center;
-
-    .span-10 {
-        grid-column: span 10;
-    }
 
     .error {
         grid-column: span 10;
