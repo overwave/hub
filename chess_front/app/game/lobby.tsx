@@ -1,6 +1,6 @@
 'use client'
 
-import './board.css'
+import '../component/board/board.module.css'
 import {clsx} from 'clsx';
 import styles from "@/app/play/styles.module.css";
 import {ArrowRight, ArrowUpRightSquare, Plus, SlashCircle, Square, SquareFill, SquareHalf} from "react-bootstrap-icons";

@@ -2,9 +2,10 @@
 
 import {Prompt} from 'next/font/google'
 import {ReactNode} from 'react'
-import {BoardDto, FigureDto, useBoard} from './api'
-import './board.css'
+import {BoardDto, FigureDto} from '../../game/api'
+import styles from "./board.module.css";
 import Image from "next/image";
+import {clsx} from "clsx";
 
 const font = Prompt({subsets: ['latin'], weight: ['500']})
 
@@ -13,20 +14,20 @@ const withinBoard = (position: number): boolean => position > 0 && position < 9;
 function getCellType(column: number, row: number): string {
     const classes: string[] = [];
     if (column === 1 && withinBoard(row)) {
-        classes.push('board_border-left');
+        classes.push(styles.borderLeft);
     } else if (column === 8 && withinBoard(row)) {
-        classes.push('board_border-right');
+        classes.push(styles.borderRight);
     }
     if (row === 8 && withinBoard(column)) {
-        classes.push('board_border-top');
+        classes.push(styles.borderTop);
     } else if (row === 1 && withinBoard(column)) {
-        classes.push('board_border-bottom');
+        classes.push(styles.borderBottom);
     }
     if (withinBoard(column) && withinBoard(row)) {
-        classes.push((column + row) % 2 ? 'black' : 'white');
+        classes.push((column + row) % 2 ? styles.black : styles.white);
     }
     if (!withinBoard(column) && withinBoard(row) || withinBoard(column) && !withinBoard(row)) {
-        classes.push('board_border-label');
+        classes.push(styles.borderLabel);
     }
     return classes.join(' ');
 }
@@ -40,7 +41,7 @@ function getCellText(column: number, row: number): string {
     return '';
 }
 
-function Figure(props: { figure?: FigureDto }) {
+function Figure(props: { figure: FigureDto | undefined }) {
     if (props.figure === undefined) {
         return null;
     }
@@ -49,7 +50,7 @@ function Figure(props: { figure?: FigureDto }) {
     return <Image src={`/chess/figure/${type}_${color}.svg`} alt="Chess piece" fill className="p-1"/>;
 }
 
-function Cells(props: { board?: BoardDto}) {
+function Cells(props: { board: BoardDto | undefined, reversed: boolean }) {
     if (!props.board) {
         return undefined;
     }
@@ -61,7 +62,7 @@ function Cells(props: { board?: BoardDto}) {
             const cellType = getCellType(column, row);
             boardNodes.push(
                 <div key={address}
-                     className={cellType + ' cell position-relative ' + font.className}>
+                     className={clsx(cellType, styles.cell, font.className)}>
                     {getCellText(column, row)}
                     {withinBoard(column) && withinBoard(row) && <Figure figure={board.get(address)?.figure}/>}
                 </div>
@@ -71,18 +72,30 @@ function Cells(props: { board?: BoardDto}) {
     return boardNodes;
 }
 
-export default function Board(props: { board?: BoardDto, boardSupplier?: () => BoardDto | undefined }) {
-    const board = (props.boardSupplier || (() => props.board))();
+export type BoardProps = {
+    board?: BoardDto,
+    boardSupplier?: () => { board: BoardDto | undefined },
+    reversed?: boolean,
+    size?: string,
+};
+
+export default function Board(props: BoardProps) {
+    const defaultBoardSupplier = () => ({board: props.board});
+    const board = (props.boardSupplier || defaultBoardSupplier)().board;
+    const style = {
+        width: props.size || 'min(50vh, 50vw)',
+        height: props.size || 'min(50vh, 50vw)',
+    };
     return (
-        <main className="d-grid mx-5">
-            {!board &&
-                <div className="loading-placeholder">
-                    <div className="spinner-border" role="status">
+        <div style={style}>
+            <main className={styles.board}>
+                <div className={clsx(board && "d-none", styles.loadingPlaceholder)}>
+                    <div className={clsx("spinner-border", styles.spinner)} role="status">
                         <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
-            }
-            <Cells board={board}></Cells>
-        </main>
+                <Cells board={board} reversed={!!props.reversed}></Cells>
+            </main>
+        </div>
     );
 }

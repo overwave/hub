@@ -1,0 +1,59 @@
+.board {
+    --label-size: 5%;
+    display: grid;
+    height: 100%;
+    grid-template-columns: var(--label-size) repeat(8, calc((100% - var(--label-size) * 2) / 8)) var(--label-size);
+    grid-template-rows: var(--label-size) repeat(8, calc((100% - var(--label-size) * 2) / 8)) var(--label-size);
+    justify-content: center;
+
+    .borderLabel {
+        border-width: 0;
+        font-size: 20px;
+    }
+
+    .borderTop {
+        border-top: var(--board-black) 2px solid;
+    }
+
+    .borderBottom {
+        border-bottom: var(--board-black) 2px solid;
+    }
+
+    .borderLeft {
+        border-left: var(--board-black) 2px solid;
+    }
+
+    .borderRight {
+        border-right: var(--board-black) 2px solid;
+    }
+}
+
+.loadingPlaceholder {
+    grid-column: span 10;
+    grid-row: span 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .spinner {
+        width: min(10vh, 10vw);
+        height: min(10vh, 10vw);
+    }
+}
+
+.cell {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+    &.black {
+        background-color: var(--board-black);
+        font-size: 32px;
+    }
+
+    &.white {
+        background-color: var(--board-white);
+        font-size: 32px;
+    }
+}
