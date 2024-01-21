@@ -12,3 +12,52 @@
 .contentWrapper nav {
     width: 300px;
 }
+
+.demoGame img {
+    height: 500px;
+}
+
+.lobbyButton {
+    --bs-btn-padding-y: .2rem;
+    --bs-btn-padding-x: .2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.versus {
+    width: 7%;
+}
+
+.lobbyCard {
+    .sessionRequest {
+        .arrow {
+            font-size: 1.875rem;
+            float: right;
+            color: var(--bs-success);
+            opacity: 0;
+            transition: opacity linear 0.1s;
+        }
+
+        &:hover .arrow {
+            opacity: 1;
+        }
+    }
+
+    .externalLink {
+        font-size: 1rem;
+        margin-left: .25rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .placeholder {
+        display: none;
+    }
+
+    .placeholderItem {
+        padding-bottom: 0.5rem;
+    }
+
+    .placeholder span {
+        height: 2.5rem;
+    }
+}
