@@ -9,9 +9,11 @@ import {clsx} from 'clsx';
 import Link from "next/link";
 import Lobby from "@/app/game/lobby";
 import Board from "@/app/game/board";
+import {useDemoMatch} from "@/app/game/api";
 
 export default function Page() {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const {board} = useDemoMatch();
 
     return (
         <div className="h-100">
@@ -23,7 +25,7 @@ export default function Page() {
                     </div>
                     <div className={clsx(styles.demoGame, "col-sm-8 border text-center col")}>
                         <div className="row">
-                            <Board></Board>
+                            <Board board={board}></Board>
                         </div>
                         <footer className="row">
                             <div>
