@@ -35,7 +35,7 @@ export type FigureDto = {
     type: 'PAWN' | 'KNIGHT' | 'BISHOP' | 'ROOK' | 'QUEEN' | 'KING',
 }
 
-export function useBoard(): { board?: BoardDto, isLoading: boolean, error: any } {
+export function useBoard(): { board: BoardDto | undefined, isLoading: boolean, error: any } {
     const {data, error, isLoading} = useSWR(getHost() + '/chess/api/game/board', fetcher);
     return {
         board: data ? {board: new Map(Object.entries(data.board))} : undefined,
@@ -77,7 +77,7 @@ export async function useUser(): Promise<UserDto | undefined> {
         .catch(() => undefined);
 }
 
-export function useDemoMatch(): { board?: BoardDto } {
+export function useDemoMatch(): { board: BoardDto | undefined } {
     const {data} = useSWR(getHost() + '/chess/api/game/board', fetcher);
-    return {board: data ? {board: new Map(Object.entries(data.board))} : undefined,};
+    return {board: data ? {board: new Map(Object.entries(data.board))} : undefined};
 }

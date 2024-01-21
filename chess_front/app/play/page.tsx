@@ -8,12 +8,11 @@ import {X} from 'react-bootstrap-icons';
 import {clsx} from 'clsx';
 import Link from "next/link";
 import Lobby from "@/app/game/lobby";
-import Board from "@/app/game/board";
+import Board from "@/app/component/board/board";
 import {useDemoMatch} from "@/app/game/api";
 
 export default function Page() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const {board} = useDemoMatch();
 
     return (
         <div className="h-100">
@@ -23,11 +22,11 @@ export default function Page() {
                     <div className="col-sm-4">
                         <Lobby></Lobby>
                     </div>
-                    <div className={clsx(styles.demoGame, "col-sm-8 border text-center col")}>
-                        <div className="row">
-                            <Board board={board}></Board>
+                    <div className={clsx(styles.demoGame, "col col-sm-8 border")}>
+                        <div className="d-flex justify-content-center">
+                            <Board boardSupplier={useDemoMatch} size="min(75vh, 60vw)"></Board>
                         </div>
-                        <footer className="row">
+                        <footer>
                             <div>
                                 <div className="pt-3 h4 row">
                                     <div className="col p-0">

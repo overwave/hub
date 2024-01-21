@@ -2,9 +2,10 @@
 
 import {useState} from 'react'
 import styles from './styles.module.css'
-import Board from "./board";
+import Board from "../component/board/board";
 import Navbar from "@/app/component/navbar";
 import Chat from "@/app/component/chat/chat";
+import {useBoard} from "@/app/game/api";
 
 
 export default function Page() {
@@ -22,7 +23,7 @@ export default function Page() {
 
                         <Chat></Chat>
                     </aside>
-                    <Board></Board>
+                    <Board boardSupplier={useBoard}></Board>
                     <aside className="d-block border border-primary border-2 h-50 my-auto">moves</aside>
                 </main>
             </div>
