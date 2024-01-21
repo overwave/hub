@@ -80,7 +80,6 @@ export default function Board() {
                     </div>
                 </div>
             }
-            {!error && !isLoading && <div className="span-10"></div>}
             {!error && !isLoading && <Cells></Cells>}
         </main>
     );
