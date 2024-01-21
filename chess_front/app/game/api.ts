@@ -44,6 +44,28 @@ export function useBoard(): { board?: BoardDto, isLoading: boolean, error: any }
     };
 }
 
+export type LobbyDto = {
+    sessionRequests: SessionRequestDto[],
+}
+
+export type SessionRequestDto = {
+    id: number,
+    opponent: PlayerDto,
+    availableSide: 'WHITE' | 'BLACK' | 'ANY',
+    status: any,
+}
+
+export type PlayerDto = {
+    login: string,
+    name: string,
+    bot: boolean,
+}
+
+export function useWaitingLobby(): { lobby?: LobbyDto } {
+    let {data} = useSWR(getHost() + '/chess/api/game/open', fetcher);
+    return {lobby: data};
+}
+
 export type UserDto = {
     login: string,
 }
