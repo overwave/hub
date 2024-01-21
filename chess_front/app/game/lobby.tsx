@@ -3,10 +3,22 @@
 import './board.css'
 import {clsx} from 'clsx';
 import styles from "@/app/play/styles.module.css";
-import {ArrowRight, ArrowUpRightSquare, Plus, SlashCircle} from "react-bootstrap-icons";
+import {ArrowRight, ArrowUpRightSquare, Plus, SlashCircle, Square, SquareFill, SquareHalf} from "react-bootstrap-icons";
 import Link from "next/link";
 import {useWaitingLobby} from "@/app/game/api";
+import {ReactNode} from "react";
 
+
+function getSideIcon(side: "WHITE" | "BLACK" | "ANY"): ReactNode {
+    switch (side) {
+        case "WHITE":
+            return <Square className={styles.sideIcon}></Square>;
+        case "BLACK":
+            return <SquareFill className={styles.sideIcon}></SquareFill>;
+        case "ANY":
+            return <SquareHalf className={styles.sideIcon}></SquareHalf>;
+    }
+}
 
 export default function Lobby() {
     const {lobby} = useWaitingLobby();
@@ -26,6 +38,7 @@ export default function Lobby() {
                     {lobby?.sessionRequests?.map(request =>
                         <button key={request.id} type="button"
                                 className={clsx("btn btn-light text-start fs-5", styles.sessionRequest)}>
+                            {getSideIcon(request.opponentSide)}
                             {request.opponent.bot &&
                                 <span className="badge text-bg-secondary me-1 align-text-top">Бот</span>}
                             <span>{request.opponent.name}</span>

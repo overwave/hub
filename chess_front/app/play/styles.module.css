@@ -60,4 +60,9 @@
     .placeholder span {
         height: 2.5rem;
     }
+
+    .sideIcon {
+        margin-bottom: 0.25rem;
+        margin-right: 0.5rem;
+    }
 }
