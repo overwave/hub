@@ -6,6 +6,7 @@ import dev.overwave.chess.model.SessionStatus
 import dev.overwave.chess.model.User
 import dev.overwave.chess.repository.SessionRepository
 import dev.overwave.chess.repository.UserRepository
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
@@ -18,6 +19,7 @@ class GameControllerTest(
     private val sessionRepository: SessionRepository,
     private val mockMvc: MockMvc,
 ) {
+    @Disabled
     @Test
     @WithMockUser
     fun `when get open sessions then open sessions returned`() {

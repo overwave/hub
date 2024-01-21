@@ -2,8 +2,13 @@ package dev.overwave.chess.controller
 
 import dev.overwave.chess.dto.BoardResponseDto
 import dev.overwave.chess.dto.PlayableSessionResponseDto
+import dev.overwave.chess.dto.PlayerDto
+import dev.overwave.chess.dto.SessionRequestDto
+import dev.overwave.chess.dto.SessionRequestListDto
 import dev.overwave.chess.dto.SimpleSessionResponseDto
 import dev.overwave.chess.dto.StartSessionRequestDto
+import dev.overwave.chess.model.SessionStatus
+import dev.overwave.chess.service.FigureColor
 import dev.overwave.chess.service.GameService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -26,8 +31,14 @@ class GameController(
     }
 
     @GetMapping("/open")
-    fun getOpenSessions(): List<SimpleSessionResponseDto> {
-        return gameService.getOpenSessions()
+    fun getOpenSessions(): SessionRequestListDto {
+        return SessionRequestListDto(
+            listOf(
+                SessionRequestDto(123, PlayerDto("Родион", "overwave"), FigureColor.BLACK, SessionStatus.OPEN),
+                SessionRequestDto(124, PlayerDto("Лизавета", "arhideya"), FigureColor.WHITE, SessionStatus.OPEN),
+                SessionRequestDto(125, PlayerDto("Афина", "athene", bot = true), FigureColor.WHITE, SessionStatus.OPEN),
+            )
+        )
     }
 
     @PostMapping("/start")
@@ -41,7 +52,7 @@ class GameController(
     }
 
     @GetMapping("/{id}")
-    fun getSession(@PathVariable id: Long) : PlayableSessionResponseDto {
+    fun getSession(@PathVariable id: Long): PlayableSessionResponseDto {
         return gameService.getSession(id)
     }
 }
