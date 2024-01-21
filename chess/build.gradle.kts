@@ -39,6 +39,7 @@ dependencies {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
         exclude(group = "org.mockito", module = "mockito-core")
     }
+    testImplementation("org.assertj:assertj-core:3.25.1")
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("io.zonky.test:embedded-database-spring-test:2.4.0")
     testImplementation("io.zonky.test:embedded-postgres:2.0.5")

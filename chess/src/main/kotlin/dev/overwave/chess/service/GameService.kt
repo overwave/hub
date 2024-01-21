@@ -2,20 +2,32 @@ package dev.overwave.chess.service
 
 import dev.overwave.chess.dto.BoardResponseDto
 import dev.overwave.chess.dto.FigureDto
-import dev.overwave.chess.dto.SessionResponseDto
+import dev.overwave.chess.dto.PlayableSessionResponseDto
+import dev.overwave.chess.dto.SimpleSessionResponseDto
 import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.dto.TileDto
+import dev.overwave.chess.exception.SessionNotOpenedException
 import dev.overwave.chess.mapper.toSessionResponseDto
 import dev.overwave.chess.model.Session
 import dev.overwave.chess.model.SessionStatus
+import dev.overwave.chess.repository.FigureRepository
+import dev.overwave.chess.repository.SessionHistoryRepository
+import dev.overwave.chess.repository.SessionMessageRepository
 import dev.overwave.chess.repository.SessionRepository
-import org.springframework.data.repository.findByIdOrNull
+import dev.overwave.chess.repository.UserRepository
+import dev.overwave.chess.repository.findByIdOrThrow
+import dev.overwave.chess.repository.findByLoginOrThrow
 import org.springframework.stereotype.Service
+
+private const val BOT_LOGIN: String = "bot"
 
 @Service
 class GameService(
     private val sessionRepository: SessionRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val figureRepository: FigureRepository,
+    private val sessionHistoryRepository: SessionHistoryRepository,
+    private val sessionMessageRepository: SessionMessageRepository,
 ) {
     private val figureLayout = mapOf(
         "a" to FigureType.ROOK,
@@ -43,25 +55,41 @@ class GameService(
         return BoardResponseDto(tiles.associateBy { it.address })
     }
 
-    fun getOpenSessions(): List<SessionResponseDto> {
+    fun getOpenSessions(): List<SimpleSessionResponseDto> {
         val sessions = sessionRepository.findAllByStatus(SessionStatus.OPEN)
         return sessions.map { toSessionResponseDto(it) }
     }
 
-    fun startGame(playerId: Long, request: StartSessionRequestDto): SessionResponseDto {
-        val white: Long?
-        val black: Long?
-        if(request.side == FigureColor.WHITE) {
-            white = playerId;
-            black = request.against
-        } else {
-            white = request.against
-            black = playerId
-        }
-        val whitePlayer = userRepository.findByIdOrNull(white)
-        val blackPlayer = userRepository.findByIdOrNull(black)
+    fun startGame(login: String, request: StartSessionRequestDto): SimpleSessionResponseDto {
+        val user = userRepository.findByLoginOrThrow(login)
+        val opponent = if (request.opponent == Opponent.BOT) userRepository.findByLoginOrThrow(BOT_LOGIN) else null
 
-        val session = sessionRepository.save(Session(whitePlayer, blackPlayer, SessionStatus.OPEN))
-        return toSessionResponseDto(session);
+        val white = if (request.side == FigureColor.WHITE) user else opponent
+        val black = if (request.side == FigureColor.BLACK) user else opponent
+
+        val status = if (request.opponent == Opponent.BOT) SessionStatus.IN_PROGRESS else SessionStatus.OPEN
+        val session = sessionRepository.save(Session(white, black, status))
+        return toSessionResponseDto(session)
+    }
+
+    fun joinSession(login: String, sessionId: Long): SimpleSessionResponseDto {
+        val user = userRepository.findByLoginOrThrow(login)
+        val session = sessionRepository.findByIdOrThrow(sessionId)
+        if (session.status != SessionStatus.OPEN) {
+            throw SessionNotOpenedException(sessionId)
+        }
+        session.blackPlayer = session.blackPlayer ?: user
+        session.whitePlayer = session.whitePlayer ?: user
+        session.status = SessionStatus.IN_PROGRESS
+        return toSessionResponseDto(sessionRepository.save(session))
+    }
+
+    fun getSession(sessionId: Long): PlayableSessionResponseDto {
+        val session = sessionRepository.findByIdOrThrow(sessionId)
+        val figures = figureRepository.findAllBySessionId(sessionId)
+        val sessionHistory = sessionHistoryRepository.findAllBySessionId(sessionId)
+        val sessionMessages = sessionMessageRepository.findAllBySessionId(sessionId)
+
+        TODO("Not yet implemented")
     }
 }

@@ -15,7 +15,6 @@ import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import java.util.concurrent.TimeUnit
 
-
 @Profile("!test")
 @Configuration
 class SecurityConfiguration(
@@ -36,7 +35,8 @@ class SecurityConfiguration(
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         return http.authorizeHttpRequests {
-            it.requestMatchers("/chess/api/user/me").authenticated()
+            it.requestMatchers("/chess/api/user/me", "/chess/api/game/start", "/chess/api/game/{id}/join")
+                .authenticated()
             it.anyRequest().permitAll()
         }.httpBasic(withDefaults()).cors {
         }.formLogin {

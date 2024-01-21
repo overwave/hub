@@ -28,4 +28,4 @@ class SessionHistory(
 
     val taken: Boolean,
 
-    ) : LongGenAud() {}
+    ) : LongGenAud()
