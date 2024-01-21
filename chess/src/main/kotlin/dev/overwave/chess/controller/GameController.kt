@@ -5,10 +5,10 @@ import dev.overwave.chess.dto.PlayableSessionResponseDto
 import dev.overwave.chess.dto.PlayerDto
 import dev.overwave.chess.dto.SessionRequestDto
 import dev.overwave.chess.dto.SessionRequestListDto
+import dev.overwave.chess.dto.Side
 import dev.overwave.chess.dto.SimpleSessionResponseDto
 import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.model.SessionStatus
-import dev.overwave.chess.service.FigureColor
 import dev.overwave.chess.service.GameService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -34,9 +34,9 @@ class GameController(
     fun getOpenSessions(): SessionRequestListDto {
         return SessionRequestListDto(
             listOf(
-                SessionRequestDto(123, PlayerDto("Родион", "overwave"), FigureColor.BLACK, SessionStatus.OPEN),
-                SessionRequestDto(124, PlayerDto("Лизавета", "arhideya"), FigureColor.WHITE, SessionStatus.OPEN),
-                SessionRequestDto(125, PlayerDto("Афина", "athene", bot = true), FigureColor.WHITE, SessionStatus.OPEN),
+                SessionRequestDto(123, PlayerDto("Родион", "overwave"), Side.BLACK, SessionStatus.OPEN),
+                SessionRequestDto(124, PlayerDto("Лизавета", "arhideya"), Side.WHITE, SessionStatus.OPEN),
+                SessionRequestDto(125, PlayerDto("Афина", "athene", bot = true), Side.ANY, SessionStatus.OPEN),
             )
         )
     }

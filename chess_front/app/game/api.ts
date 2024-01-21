@@ -51,7 +51,7 @@ export type LobbyDto = {
 export type SessionRequestDto = {
     id: number,
     opponent: PlayerDto,
-    availableSide: 'WHITE' | 'BLACK' | 'ANY',
+    opponentSide: 'WHITE' | 'BLACK' | 'ANY',
     status: any,
 }
 
