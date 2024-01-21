@@ -36,7 +36,7 @@ export type FigureDto = {
 }
 
 export function useBoard(): { board?: BoardDto, isLoading: boolean, error: any } {
-    let {data, error, isLoading} = useSWR(getHost() + '/chess/api/game/board', fetcher);
+    const {data, error, isLoading} = useSWR(getHost() + '/chess/api/game/board', fetcher);
     return {
         board: data ? {board: new Map(Object.entries(data.board))} : undefined,
         isLoading,
@@ -75,4 +75,9 @@ export async function useUser(): Promise<UserDto | undefined> {
         credentials: 'include',
     }).then((response) => response.ok ? response.json() : Promise.resolve(undefined))
         .catch(() => undefined);
+}
+
+export function useDemoMatch(): { board?: BoardDto } {
+    const {data} = useSWR(getHost() + '/chess/api/game/board', fetcher);
+    return {board: data ? {board: new Map(Object.entries(data.board))} : undefined,};
 }

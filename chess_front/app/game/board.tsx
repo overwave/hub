@@ -2,7 +2,7 @@
 
 import {Prompt} from 'next/font/google'
 import {ReactNode} from 'react'
-import {FigureDto, useBoard} from './api'
+import {BoardDto, FigureDto, useBoard} from './api'
 import './board.css'
 import Image from "next/image";
 
@@ -49,8 +49,11 @@ function Figure(props: { figure?: FigureDto }) {
     return <Image src={`/chess/figure/${type}_${color}.svg`} alt="Chess piece" fill className="p-1"/>;
 }
 
-function Cells() {
-    const {board} = useBoard();
+function Cells(props: { board?: BoardDto}) {
+    if (!props.board) {
+        return undefined;
+    }
+    const board = props.board.board;
     const boardNodes: ReactNode[] = [];
     for (let row = 9; row >= 0; row--) {
         for (let column = 0; column <= 9; column++) {
@@ -60,7 +63,7 @@ function Cells() {
                 <div key={address}
                      className={cellType + ' cell position-relative ' + font.className}>
                     {getCellText(column, row)}
-                    {withinBoard(column) && withinBoard(row) && <Figure figure={board!.board.get(address)?.figure}/>}
+                    {withinBoard(column) && withinBoard(row) && <Figure figure={board.get(address)?.figure}/>}
                 </div>
             );
         }
@@ -68,19 +71,18 @@ function Cells() {
     return boardNodes;
 }
 
-export default function Board() {
-    const {error, isLoading} = useBoard();
+export default function Board(props: { board?: BoardDto, boardSupplier?: () => BoardDto | undefined }) {
+    const board = (props.boardSupplier || (() => props.board))();
     return (
         <main className="d-grid mx-5">
-            {error && <div className="error-message">{'' + error}</div>}
-            {isLoading &&
+            {!board &&
                 <div className="loading-placeholder">
                     <div className="spinner-border" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
             }
-            {!error && !isLoading && <Cells></Cells>}
+            <Cells board={board}></Cells>
         </main>
     );
 }
