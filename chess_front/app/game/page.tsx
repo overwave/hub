@@ -4,7 +4,7 @@ import {useState} from 'react'
 import styles from './styles.module.css'
 import Board from "./board";
 import Navbar from "@/app/component/navbar";
-import Chat from "@/app/component/chat";
+import Chat from "@/app/component/chat/chat";
 
 
 export default function Page() {
