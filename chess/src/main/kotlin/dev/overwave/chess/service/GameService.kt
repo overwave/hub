@@ -2,12 +2,14 @@ package dev.overwave.chess.service
 
 import dev.overwave.chess.dto.BoardResponseDto
 import dev.overwave.chess.dto.FigureDto
+import dev.overwave.chess.dto.OpenSessionsListDto
 import dev.overwave.chess.dto.PlayableSessionResponseDto
 import dev.overwave.chess.dto.SimpleSessionResponseDto
 import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.dto.TileDto
 import dev.overwave.chess.exception.SessionNotOpenedException
-import dev.overwave.chess.mapper.toSessionResponseDto
+import dev.overwave.chess.mapper.toOpenSessionDto
+import dev.overwave.chess.mapper.toSimpleSessionResponseDto
 import dev.overwave.chess.model.Session
 import dev.overwave.chess.model.SessionStatus
 import dev.overwave.chess.repository.FigureRepository
@@ -55,21 +57,21 @@ class GameService(
         return BoardResponseDto(tiles.associateBy { it.address })
     }
 
-    fun getOpenSessions(): List<SimpleSessionResponseDto> {
+    fun getOpenSessions(): OpenSessionsListDto {
         val sessions = sessionRepository.findAllByStatus(SessionStatus.OPEN)
-        return sessions.map { toSessionResponseDto(it) }
+        return OpenSessionsListDto(sessions.map { toOpenSessionDto(it) })
     }
 
     fun startGame(login: String, request: StartSessionRequestDto): SimpleSessionResponseDto {
         val user = userRepository.findByLoginOrThrow(login)
-        val opponent = if (request.opponent == Opponent.BOT) userRepository.findByLoginOrThrow(BOT_LOGIN) else null
+        val opponent = if (request.opponent == Opponent.BOT) userRepository.findTop1ByBotIsTrue() else null
 
         val white = if (request.side == FigureColor.WHITE) user else opponent
         val black = if (request.side == FigureColor.BLACK) user else opponent
 
         val status = if (request.opponent == Opponent.BOT) SessionStatus.IN_PROGRESS else SessionStatus.OPEN
         val session = sessionRepository.save(Session(white, black, status))
-        return toSessionResponseDto(session)
+        return toSimpleSessionResponseDto(session)
     }
 
     fun joinSession(login: String, sessionId: Long): SimpleSessionResponseDto {
@@ -81,7 +83,7 @@ class GameService(
         session.blackPlayer = session.blackPlayer ?: user
         session.whitePlayer = session.whitePlayer ?: user
         session.status = SessionStatus.IN_PROGRESS
-        return toSessionResponseDto(sessionRepository.save(session))
+        return toSimpleSessionResponseDto(sessionRepository.save(session))
     }
 
     fun getSession(sessionId: Long): PlayableSessionResponseDto {
