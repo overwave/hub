@@ -3,7 +3,7 @@
 import '../component/board/board.module.css'
 import {clsx} from 'clsx';
 import styles from "@/app/play/styles.module.css";
-import {ArrowRight, ArrowUpRightSquare, Plus, SlashCircle, Square, SquareFill, SquareHalf} from "react-bootstrap-icons";
+import {ArrowUpRightSquare, Cpu, Plus, SlashCircle, Square, SquareFill, SquareHalf} from "react-bootstrap-icons";
 import Link from "next/link";
 import {OpenSessionDto, useWaitingLobby} from "@/app/game/api";
 import {useCollapse} from 'react-collapsed'
@@ -107,7 +107,29 @@ export default function Lobby() {
                 </div>
             </main>
             <footer className="card-footer">
-                <a href="#" className="btn btn-success">Создать</a>
+                <div className="fs-5">
+                    <div className="mb-1">Выберите цвет фигур:</div>
+
+                    <input type="radio" className="btn-check" name="side" id="radioWhite" autoComplete="off"/>
+                    <label className="btn btn-light me-2" htmlFor="radioWhite"><Square></Square> Белые</label>
+
+                    <input type="radio" className="btn-check" name="side" id="radioBlack" autoComplete="off"/>
+                    <label className="btn btn-light me-2" htmlFor="radioBlack"><SquareFill></SquareFill> Чёрные</label>
+
+                    <input type="radio" className="btn-check" name="side" id="radioAny" autoComplete="off"/>
+                    <label className="btn btn-light me-2" htmlFor="radioAny"><SquareHalf></SquareHalf> Любой</label>
+
+                    <div className="mt-2 mb-1">Выберите противника:</div>
+
+                    <input type="radio" className="btn-check" name="opponent" id="radioHuman" autoComplete="off"/>
+                    <label className="btn btn-light me-2" htmlFor="radioHuman"><PersonArmsUp></PersonArmsUp> Человек</label>
+
+                    <input type="radio" className="btn-check" name="opponent" id="radioBot" autoComplete="off"/>
+                    <label className="btn btn-light me-2" htmlFor="radioBot"><Cpu className=""></Cpu> Бот</label>
+
+                    <div className="mt-2"></div>
+                </div>
+                <button type="button" className="btn btn-success">Создать</button>
             </footer>
         </div>
     );
