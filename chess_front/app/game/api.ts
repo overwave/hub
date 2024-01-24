@@ -45,14 +45,13 @@ export function useBoard(): { board: BoardDto | undefined, isLoading: boolean, e
 }
 
 export type LobbyDto = {
-    sessionRequests: SessionRequestDto[],
+    openSessions: OpenSessionDto[],
 }
 
-export type SessionRequestDto = {
+export type OpenSessionDto = {
     id: number,
     opponent: PlayerDto,
     opponentSide: 'WHITE' | 'BLACK' | 'ANY',
-    status: any,
 }
 
 export type PlayerDto = {
