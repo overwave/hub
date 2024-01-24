@@ -30,6 +30,10 @@
 }
 
 .lobbyCard {
+    .cardMain {
+        overflow: hidden;
+    }
+
     .sessionRequest {
         .arrow {
             font-size: 1.875rem;
