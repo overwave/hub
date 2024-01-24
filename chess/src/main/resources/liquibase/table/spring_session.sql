@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset author:overwave
+--changeset author:overwave spring_session_create_table
 create table spring_session
 (
     primary_id            text primary key,
