@@ -84,7 +84,7 @@ export default function Board(props: BoardProps) {
     const board = (props.boardSupplier || defaultBoardSupplier)().board;
     const style = {
         width: props.size || 'min(50vh, 50vw)',
-        height: props.size || 'min(50vh, 50vw)',
+        aspectRatio: 1,
     };
     return (
         <div style={style}>
