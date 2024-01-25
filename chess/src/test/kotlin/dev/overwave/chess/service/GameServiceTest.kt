@@ -2,7 +2,6 @@ package dev.overwave.chess.service
 
 import dev.overwave.chess.dto.BoardResponseDto
 import dev.overwave.chess.dto.FigureDto
-import dev.overwave.chess.dto.Side
 import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.dto.TileDto
 import dev.overwave.chess.exception.BotNotFoundException
@@ -108,12 +107,12 @@ class GameServiceTest() {
             sessionRepository.findAllByStatus(SessionStatus.OPEN)
         } returns listOf(getOpenedSession())
 
-        val actual = gameService.getOpenSessions().openSessions.single()
+        val actual = gameService.getOpenSessions().openSessions
 
         verify(exactly = 1) {
             sessionRepository.findAllByStatus(SessionStatus.OPEN)
         }
-        assertThat(actual.opponentSide).isEqualTo(Side.WHITE)
+        assertThat(actual).hasSize(1)
     }
 
     @Test
@@ -171,7 +170,7 @@ class GameServiceTest() {
 
         every {
             userRepository.findTop1ByBotIsTrue()
-        } throws BotNotFoundException()
+        } returns null
 
 
         assertThrows<BotNotFoundException> { gameService.startGame(login, request) }

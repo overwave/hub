@@ -65,8 +65,12 @@ class GameService(
 
     fun startGame(login: String, request: StartSessionRequestDto): SimpleSessionResponseDto {
         val user = userRepository.findByLoginOrThrow(login)
-        val opponent = if (request.opponent == Opponent.BOT) userRepository.findTop1ByBotIsTrue()
-            ?: throw BotNotFoundException() else null
+        val opponent =
+            if (request.opponent == Opponent.BOT) {
+                userRepository.findTop1ByBotIsTrue() ?: throw BotNotFoundException()
+            } else {
+                null
+            }
 
         val white = if (request.side == FigureColor.WHITE) user else opponent
         val black = if (request.side == FigureColor.BLACK) user else opponent
