@@ -1,7 +1,7 @@
 --liquibase formatted sql
 
 --changeset author:overwave spring_session_create_table
-create table spring_session
+create table if not exists spring_session
 (
     primary_id            text primary key,
     session_id            text unique not null,
@@ -12,5 +12,5 @@ create table spring_session
     principal_name        text
 );
 
-create index spring_session_principal_name_idx on spring_session (principal_name);
-create index spring_session_expiry_time_idx on spring_session (expiry_time);
+create index if not exists spring_session_principal_name_idx on spring_session (principal_name);
+create index if not exists spring_session_expiry_time_idx on spring_session (expiry_time);
