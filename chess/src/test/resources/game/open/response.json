@@ -1,7 +1,6 @@
 {
     "openSessions": [
         {
-            "id": 1,
             "opponent": {
                 "name": "name1",
                 "login": "login1",
@@ -10,7 +9,6 @@
             "opponentSide": "WHITE"
         },
         {
-            "id": 2,
             "opponent": {
                 "name": "name2",
                 "login": "login2",
@@ -19,7 +17,6 @@
             "opponentSide": "BLACK"
         },
         {
-            "id": 3,
             "opponent": {
                 "name": "Hephaestus",
                 "login": "hephaestus",

@@ -6,6 +6,7 @@ import dev.overwave.chess.misc.FunctionalTest
 import dev.overwave.chess.model.Session
 import dev.overwave.chess.model.SessionStatus
 import dev.overwave.chess.model.User
+import dev.overwave.chess.readText
 import dev.overwave.chess.repository.SessionRepository
 import dev.overwave.chess.repository.UserRepository
 import dev.overwave.chess.service.FigureColor
@@ -25,9 +26,6 @@ class GameControllerTest(
     private val mockMvc: MockMvc,
     private val mapper: ObjectMapper,
 ) {
-    private fun readText(path: String): String {
-        return this.javaClass.getResource(path)!!.readText()
-    }
 
     @Test
     @WithMockUser
@@ -41,14 +39,13 @@ class GameControllerTest(
         mockMvc.get("/chess/api/game/open").andExpect {
             status { isOk() }
             content { contentType(MediaType.APPLICATION_JSON) }
-            content { json(readText("/game/open/response.json"), true) }
+            content { json(readText("/game/open/response.json")) }
         }
     }
 
     @Test
     @WithMockUser
     fun `when start session with player then open session created`() {
-        val white = userRepository.save(User("user", "User", "ip", "password", false))
         val sessionRequestWhite = StartSessionRequestDto(FigureColor.WHITE, Opponent.PLAYER)
 
         mockMvc.post("/chess/api/game/start") {

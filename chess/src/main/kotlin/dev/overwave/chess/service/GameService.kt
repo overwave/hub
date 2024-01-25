@@ -7,6 +7,7 @@ import dev.overwave.chess.dto.PlayableSessionResponseDto
 import dev.overwave.chess.dto.SimpleSessionResponseDto
 import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.dto.TileDto
+import dev.overwave.chess.exception.BotNotFoundException
 import dev.overwave.chess.exception.SessionNotOpenedException
 import dev.overwave.chess.mapper.toOpenSessionDto
 import dev.overwave.chess.mapper.toSimpleSessionResponseDto
@@ -64,7 +65,8 @@ class GameService(
 
     fun startGame(login: String, request: StartSessionRequestDto): SimpleSessionResponseDto {
         val user = userRepository.findByLoginOrThrow(login)
-        val opponent = if (request.opponent == Opponent.BOT) userRepository.findTop1ByBotIsTrue() else null
+        val opponent = if (request.opponent == Opponent.BOT) userRepository.findTop1ByBotIsTrue()
+            ?: throw BotNotFoundException() else null
 
         val white = if (request.side == FigureColor.WHITE) user else opponent
         val black = if (request.side == FigureColor.BLACK) user else opponent
