@@ -1,0 +1,28 @@
+{
+    "openSessions": [
+        {
+            "opponent": {
+                "name": "name1",
+                "login": "login1",
+                "bot": false
+            },
+            "opponentSide": "WHITE"
+        },
+        {
+            "opponent": {
+                "name": "name2",
+                "login": "login2",
+                "bot": false
+            },
+            "opponentSide": "BLACK"
+        },
+        {
+            "opponent": {
+                "name": "Hephaestus",
+                "login": "hephaestus",
+                "bot": true
+            },
+            "opponentSide": "ANY"
+        }
+    ]
+}

@@ -4,6 +4,7 @@ import dev.overwave.chess.dto.BoardResponseDto
 import dev.overwave.chess.dto.FigureDto
 import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.dto.TileDto
+import dev.overwave.chess.exception.BotNotFoundException
 import dev.overwave.chess.exception.SessionNotFoundException
 import dev.overwave.chess.exception.SessionNotOpenedException
 import dev.overwave.chess.exception.UserNotFoundException
@@ -106,12 +107,12 @@ class GameServiceTest() {
             sessionRepository.findAllByStatus(SessionStatus.OPEN)
         } returns listOf(getOpenedSession())
 
-        val actual = gameService.getOpenSessions().single()
+        val actual = gameService.getOpenSessions().openSessions
 
         verify(exactly = 1) {
             sessionRepository.findAllByStatus(SessionStatus.OPEN)
         }
-        assertThat(actual.status).isEqualTo(SessionStatus.OPEN)
+        assertThat(actual).hasSize(1)
     }
 
     @Test
@@ -168,17 +169,17 @@ class GameServiceTest() {
         } returns user1
 
         every {
-            userRepository.findByLoginOrThrow(bot.login)
-        } throws UserNotFoundException(bot.login)
+            userRepository.findTop1ByBotIsTrue()
+        } returns null
 
 
-        assertThrows<UserNotFoundException> { gameService.startGame(login, request) }
+        assertThrows<BotNotFoundException> { gameService.startGame(login, request) }
 
         verify(exactly = 1) {
             userRepository.findByLoginOrThrow(login)
         }
         verify(exactly = 1) {
-            userRepository.findByLoginOrThrow(bot.login)
+            userRepository.findTop1ByBotIsTrue()
         }
         verify(exactly = 0) {
             sessionRepository.save(any())
@@ -195,7 +196,7 @@ class GameServiceTest() {
         } returns user1
 
         every {
-            userRepository.findByLoginOrThrow(bot.login)
+            userRepository.findTop1ByBotIsTrue()
         } returns bot
 
         every {
@@ -208,7 +209,7 @@ class GameServiceTest() {
             userRepository.findByLoginOrThrow(login)
         }
         verify(exactly = 1) {
-            userRepository.findByLoginOrThrow("bot")
+            userRepository.findTop1ByBotIsTrue()
         }
         verify(exactly = 1) {
             sessionRepository.save(getSessionWithBot())
