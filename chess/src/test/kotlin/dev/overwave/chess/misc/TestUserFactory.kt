@@ -11,21 +11,22 @@ class TestUserFactory(
 ) {
     private val usersCount = AtomicInteger(0)
 
-    private val userNameDictionary = listOf(
-        "Zeus",
-        "Hera",
-        "Poseidon",
-        "Demeter",
-        "Apollo",
-        "Artemis",
-        "Ares",
-        "Athena",
-        "Hephaestus",
-        "Aphrodite",
-        "Hermes",
-        "Hestia",
-        "Dionysus",
-    )
+    private val userNameDictionary =
+        listOf(
+            "Zeus",
+            "Hera",
+            "Poseidon",
+            "Demeter",
+            "Apollo",
+            "Artemis",
+            "Ares",
+            "Athena",
+            "Hephaestus",
+            "Aphrodite",
+            "Hermes",
+            "Hestia",
+            "Dionysus",
+        )
 
     fun createUser(index: Int = usersCount.getAndIncrement(), bot: Boolean = false): User {
         val name = userNameDictionary[index % userNameDictionary.size]

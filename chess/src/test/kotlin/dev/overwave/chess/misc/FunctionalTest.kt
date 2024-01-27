@@ -14,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @Retention(AnnotationRetention.RUNTIME)
 @ContextConfiguration(
     classes = [TestConfiguration::class],
-    initializers = [ConfigDataApplicationContextInitializer::class]
+    initializers = [ConfigDataApplicationContextInitializer::class],
 )
 @ExtendWith(SpringExtension::class, CleanUpAfterEachTest::class)
 @SpringBootTest

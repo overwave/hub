@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 class GameServiceTest {
-
     private val user2: User = User("login2", "name2", "password2", false)
     private val user1: User = User("login1", "name1", "password1", false)
     private val bot: User = User("bot", "botName", "botPassword", true)
