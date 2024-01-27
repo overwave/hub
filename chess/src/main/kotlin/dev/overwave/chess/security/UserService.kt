@@ -25,15 +25,14 @@ class UserService(
         return CheckUserDto(exists)
     }
 
-    fun registerUser(login: String, password: String, ipAddress: String) {
+    fun registerUser(login: String, password: String) {
         if (userRepository.findByLogin(login) != null) throw UserExistsException(login)
         userRepository.save(
             User(
                 login = login,
                 password = passwordEncoder.encode(password),
                 name = "Anonymous",
-                ip = ipAddress,
-                bot = false
+                bot = false,
             )
         )
     }
