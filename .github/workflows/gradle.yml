@@ -34,3 +34,6 @@ jobs:
 
       - name: Run ktlint with reviewdog
         uses: ScaCap/action-ktlint@v1.8.0
+        with:
+          reporter: github-pr-review
+          github_token: ${{ secrets.github_token }}
