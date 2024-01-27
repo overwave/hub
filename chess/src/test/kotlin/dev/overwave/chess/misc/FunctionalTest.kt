@@ -16,7 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
     classes = [TestConfiguration::class],
     initializers = [ConfigDataApplicationContextInitializer::class]
 )
-@ExtendWith(SpringExtension::class)
+@ExtendWith(SpringExtension::class, CleanUpAfterEachTest::class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureEmbeddedDatabase(

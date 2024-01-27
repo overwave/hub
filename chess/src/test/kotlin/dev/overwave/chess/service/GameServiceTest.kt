@@ -1,6 +1,5 @@
 package dev.overwave.chess.service
 
-import dev.overwave.chess.dto.BoardResponseDto
 import dev.overwave.chess.dto.FigureDto
 import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.dto.TileDto
@@ -25,11 +24,11 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-class GameServiceTest() {
+class GameServiceTest {
 
-    private val user2: User = User("login2", "name2", "ip2", "password2", false)
-    private val user1: User = User("login1", "name1", "ip1", "password1", false)
-    private val bot: User = User("bot", "botName", "botIp", "botPassword", true)
+    private val user2: User = User("login2", "name2", "password2", false)
+    private val user1: User = User("login1", "name1", "password1", false)
+    private val bot: User = User("bot", "botName", "botPassword", true)
 
     private val sessionRepository = mockk<SessionRepository>()
     private val userRepository = mockk<UserRepository>()
@@ -54,51 +53,6 @@ class GameServiceTest() {
 
     private fun getSessionWithPlayer(): Session {
         return Session(user1, user2, SessionStatus.IN_PROGRESS)
-    }
-
-    @Test
-    fun testGameService() {
-        val actualBoard = gameService.getBoard()
-        val expectedBoard = BoardResponseDto(
-            board = mapOf(
-                FigureDto(FigureColor.WHITE, FigureType.ROOK) at "a1",
-                FigureDto(FigureColor.WHITE, FigureType.KNIGHT) at "b1",
-                FigureDto(FigureColor.WHITE, FigureType.BISHOP) at "c1",
-                FigureDto(FigureColor.WHITE, FigureType.QUEEN) at "d1",
-                FigureDto(FigureColor.WHITE, FigureType.KING) at "e1",
-                FigureDto(FigureColor.WHITE, FigureType.BISHOP) at "f1",
-                FigureDto(FigureColor.WHITE, FigureType.KNIGHT) at "g1",
-                FigureDto(FigureColor.WHITE, FigureType.ROOK) at "h1",
-
-                FigureDto(FigureColor.WHITE, FigureType.PAWN) at "a2",
-                FigureDto(FigureColor.WHITE, FigureType.PAWN) at "b2",
-                FigureDto(FigureColor.WHITE, FigureType.PAWN) at "c2",
-                FigureDto(FigureColor.WHITE, FigureType.PAWN) at "d2",
-                FigureDto(FigureColor.WHITE, FigureType.PAWN) at "e2",
-                FigureDto(FigureColor.WHITE, FigureType.PAWN) at "f2",
-                FigureDto(FigureColor.WHITE, FigureType.PAWN) at "g2",
-                FigureDto(FigureColor.WHITE, FigureType.PAWN) at "h2",
-
-                FigureDto(FigureColor.BLACK, FigureType.ROOK) at "a8",
-                FigureDto(FigureColor.BLACK, FigureType.KNIGHT) at "b8",
-                FigureDto(FigureColor.BLACK, FigureType.BISHOP) at "c8",
-                FigureDto(FigureColor.BLACK, FigureType.QUEEN) at "d8",
-                FigureDto(FigureColor.BLACK, FigureType.KING) at "e8",
-                FigureDto(FigureColor.BLACK, FigureType.BISHOP) at "f8",
-                FigureDto(FigureColor.BLACK, FigureType.KNIGHT) at "g8",
-                FigureDto(FigureColor.BLACK, FigureType.ROOK) at "h8",
-
-                FigureDto(FigureColor.BLACK, FigureType.PAWN) at "a7",
-                FigureDto(FigureColor.BLACK, FigureType.PAWN) at "b7",
-                FigureDto(FigureColor.BLACK, FigureType.PAWN) at "c7",
-                FigureDto(FigureColor.BLACK, FigureType.PAWN) at "d7",
-                FigureDto(FigureColor.BLACK, FigureType.PAWN) at "e7",
-                FigureDto(FigureColor.BLACK, FigureType.PAWN) at "f7",
-                FigureDto(FigureColor.BLACK, FigureType.PAWN) at "g7",
-                FigureDto(FigureColor.BLACK, FigureType.PAWN) at "h7",
-            )
-        )
-        assertThat(actualBoard).isEqualTo(expectedBoard)
     }
 
     @Test

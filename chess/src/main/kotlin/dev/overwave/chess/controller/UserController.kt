@@ -4,7 +4,6 @@ import dev.overwave.chess.dto.UserDto
 import dev.overwave.chess.security.CheckUserDto
 import dev.overwave.chess.security.RegisterUserRequestDto
 import dev.overwave.chess.security.UserService
-import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -25,8 +24,8 @@ class UserController(
     }
 
     @PostMapping("/register")
-    fun registerUser(@RequestBody requestDto: RegisterUserRequestDto, request: HttpServletRequest) {
-        userService.registerUser(requestDto.login, requestDto.password, request.remoteAddr)
+    fun registerUser(@RequestBody requestDto: RegisterUserRequestDto) {
+        userService.registerUser(requestDto.login, requestDto.password)
     }
 
     @GetMapping("/me")
