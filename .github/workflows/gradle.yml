@@ -31,3 +31,6 @@ jobs:
         with:
           name: Package
           path: build/libs
+
+      - name: Run ktlint with reviewdog
+        uses: ScaCap/action-ktlint@v1.8.0
