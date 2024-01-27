@@ -16,18 +16,18 @@ import java.security.Principal
 @RestController
 @RequestMapping(path = ["/chess/api/user"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class UserController(
-    private val userService: UserService
+    private val userService: UserService,
 ) {
     @GetMapping("/check")
     fun checkUserExists(
-        @RequestParam login: String
+        @RequestParam login: String,
     ): CheckUserDto {
         return userService.checkUserExists(login)
     }
 
     @PostMapping("/register")
     fun registerUser(
-        @RequestBody requestDto: RegisterUserRequestDto
+        @RequestBody requestDto: RegisterUserRequestDto,
     ) {
         userService.registerUser(requestDto.login, requestDto.password)
     }
