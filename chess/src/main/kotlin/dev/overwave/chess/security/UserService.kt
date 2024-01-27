@@ -32,7 +32,7 @@ class UserService(
                 login = login,
                 password = passwordEncoder.encode(password),
                 name = "Anonymous",
-                bot = false
+                bot = false,
             )
         )
     }
