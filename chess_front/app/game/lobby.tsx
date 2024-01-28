@@ -3,11 +3,21 @@
 import '../component/board/board.module.css'
 import {clsx} from 'clsx';
 import styles from "@/app/play/styles.module.css";
-import {ArrowUpRightSquare, Cpu, Plus, SlashCircle, Square, SquareFill, SquareHalf} from "react-bootstrap-icons";
+import {
+    ArrowLeft,
+    ArrowUpRightSquare,
+    Cpu,
+    Plus,
+    SlashCircle,
+    Square,
+    SquareFill,
+    SquareHalf
+} from "react-bootstrap-icons";
 import Link from "next/link";
 import {OpenSessionDto, useWaitingLobby} from "@/app/game/api";
 import {useCollapse} from 'react-collapsed'
 import {ReactNode, useState} from "react";
+import Radio from "@/app/component/radio/radio";
 
 
 function getSideIcon(side: "WHITE" | "BLACK" | "ANY"): ReactNode {
@@ -59,6 +69,11 @@ export default function Lobby() {
     const loading = lobby?.openSessions === undefined;
     const empty = lobby?.openSessions?.length === 0;
     const [selectedSession, setSelectedSession] = useState<number | undefined>(undefined);
+    const [lobbyWizardOpened, setLobbyWizardOpened] = useState<boolean>(false);
+    const {getCollapseProps} = useCollapse({isExpanded: lobbyWizardOpened});
+
+    const [selectedSide, setSelectedSide] = useState<string>("any");
+    const [selectedOpponent, setSelectedOpponent] = useState<string >("bot");
 
     return (
         <div className={clsx("card h-100", styles.lobbyCard)}>
@@ -70,7 +85,11 @@ export default function Lobby() {
                 </button>
             </header>
             <main
-                className={clsx(styles.cardMain, "card-body", empty && "d-flex align-items-center justify-content-center")}
+                className={clsx(
+                    styles.cardMain,
+                    "card-body",
+                    empty && "d-flex align-items-center justify-content-center",
+                )}
                 onClick={(event) => {
                     if (event.target === event.currentTarget) {
                         setSelectedSession(undefined);
@@ -107,29 +126,53 @@ export default function Lobby() {
                 </div>
             </main>
             <footer className="card-footer">
-                <div className="fs-5">
-                    <div className="mb-1">Выберите цвет фигур:</div>
+                <div {...getCollapseProps()} className="fs-5">
+                    <div className="mb-2">Выберите цвет фигур:</div>
+                    <Radio name="side" callback={setSelectedSide} default="any" elements={
+                        [
+                            ["any", <span><SquareHalf></SquareHalf> Любой</span>],
+                            ["white", <span><Square></Square> Белые</span>],
+                            ["black", <span><SquareFill></SquareFill> Чёрные</span>],
+                        ]
+                    }></Radio>
 
-                    <input type="radio" className="btn-check" name="side" id="radioWhite" autoComplete="off"/>
-                    <label className="btn btn-light me-2" htmlFor="radioWhite"><Square></Square> Белые</label>
+                    <div className="mt-3 mb-2">Выберите противника:</div>
 
-                    <input type="radio" className="btn-check" name="side" id="radioBlack" autoComplete="off"/>
-                    <label className="btn btn-light me-2" htmlFor="radioBlack"><SquareFill></SquareFill> Чёрные</label>
+                    <Radio name="opponent" callback={setSelectedOpponent} default="bot" elements={
+                        [
+                            ["bot", <span><Cpu className=""></Cpu> Бот</span>],
+                            ["human", <span><PersonArmsUp></PersonArmsUp> Человек</span>],
+                        ]
+                    }></Radio>
 
-                    <input type="radio" className="btn-check" name="side" id="radioAny" autoComplete="off"/>
-                    <label className="btn btn-light me-2" htmlFor="radioAny"><SquareHalf></SquareHalf> Любой</label>
-
-                    <div className="mt-2 mb-1">Выберите противника:</div>
-
-                    <input type="radio" className="btn-check" name="opponent" id="radioHuman" autoComplete="off"/>
-                    <label className="btn btn-light me-2" htmlFor="radioHuman"><PersonArmsUp></PersonArmsUp> Человек</label>
-
-                    <input type="radio" className="btn-check" name="opponent" id="radioBot" autoComplete="off"/>
-                    <label className="btn btn-light me-2" htmlFor="radioBot"><Cpu className=""></Cpu> Бот</label>
-
-                    <div className="mt-2"></div>
+                    <div className="mt-4"></div>
                 </div>
-                <button type="button" className="btn btn-success">Создать</button>
+                <div className="btn-group w-100" role="group" aria-label="Кнопки создания лобби">
+                    {lobbyWizardOpened &&
+                        <button onClick={() => setLobbyWizardOpened(false)}
+                                type="button" className={clsx("btn btn-outline-danger")}>
+                            <ArrowLeft aria-hidden="true"/>
+                        </button>
+                    }
+                    <button
+                        onClick={() => {
+                            if (lobbyWizardOpened) {
+                                alert("Бой за " + selectedSide + " против " + selectedOpponent);
+                            } else {
+                                setLobbyWizardOpened(true);
+                            }
+                        }}
+                        type="button"
+                        className={
+                            clsx(
+                                "btn btn-primary w-100",
+                                lobbyWizardOpened && styles.createLobbyButton,
+                                lobbyWizardOpened ? 'btn-success' : 'btn-primary',
+                                lobbyWizardOpened && !(selectedSide && selectedOpponent) && 'disabled',
+                            )}>
+                        Создать
+                    </button>
+                </div>
             </footer>
         </div>
     );
