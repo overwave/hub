@@ -172,7 +172,7 @@ export default function Page() {
                     </div>
 
                     <div className="btn-group w-100" role="group" aria-label="Login form controls">
-                        {stage != 'Login' &&
+                        {stage !== 'Login' &&
                             <button type="button" className="btn btn-lg btn-outline-success"
                                     onClick={(e) => {
                                         setStage('Login');
@@ -186,7 +186,7 @@ export default function Page() {
                             disabled={subStage == "Loading"}
                             className={clsx(styles.mainButton, 'w-100', 'btn', 'btn-lg', 'btn-success')}
                             type="submit">
-                            {subStage != "Loading" ? "Далее" :
+                            {subStage !== "Loading" ? "Далее" :
                                 <div className={clsx(styles.spinnerBorder, 'spinner-border')} role="status">
                                     <span className="visually-hidden">Загрузка...</span>
                                 </div>
