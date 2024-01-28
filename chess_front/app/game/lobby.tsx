@@ -14,10 +14,11 @@ import {
     SquareHalf
 } from "react-bootstrap-icons";
 import Link from "next/link";
-import {OpenSessionDto, useWaitingLobby} from "@/app/game/api";
+import {createLobby, LobbyOpponent, LobbySide, OpenSessionDto, useWaitingLobby} from "@/app/game/api";
 import {useCollapse} from 'react-collapsed'
 import {ReactNode, useState} from "react";
 import Radio from "@/app/component/radio/radio";
+import {useRouter} from "next/navigation";
 
 
 function getSideIcon(side: "WHITE" | "BLACK" | "ANY"): ReactNode {
@@ -65,15 +66,17 @@ function PersonArmsUp() {
 }
 
 export default function Lobby() {
+    const router = useRouter();
     const {lobby} = useWaitingLobby();
     const loading = lobby?.openSessions === undefined;
     const empty = lobby?.openSessions?.length === 0;
     const [selectedSession, setSelectedSession] = useState<number | undefined>(undefined);
     const [lobbyWizardOpened, setLobbyWizardOpened] = useState<boolean>(false);
+    const [errorShown, setErrorShown] = useState<boolean>(false);
     const {getCollapseProps} = useCollapse({isExpanded: lobbyWizardOpened});
 
     const [selectedSide, setSelectedSide] = useState<string>("any");
-    const [selectedOpponent, setSelectedOpponent] = useState<string >("bot");
+    const [selectedOpponent, setSelectedOpponent] = useState<string>("bot");
 
     return (
         <div className={clsx("card h-100", styles.lobbyCard)}>
@@ -141,11 +144,12 @@ export default function Lobby() {
                     <Radio name="opponent" callback={setSelectedOpponent} default="bot" elements={
                         [
                             ["bot", <span><Cpu className=""></Cpu> Бот</span>],
-                            ["human", <span><PersonArmsUp></PersonArmsUp> Человек</span>],
+                            ["player", <span><PersonArmsUp></PersonArmsUp> Человек</span>],
                         ]
                     }></Radio>
 
                     <div className="mt-4"></div>
+                    <div className={clsx("text-danger fs-6 mb-1", !errorShown && "d-none")}>Произошла ошибка при создании лобби</div>
                 </div>
                 <div className="btn-group w-100" role="group" aria-label="Кнопки создания лобби">
                     {lobbyWizardOpened &&
@@ -156,8 +160,14 @@ export default function Lobby() {
                     }
                     <button
                         onClick={() => {
+                            setErrorShown(false);
                             if (lobbyWizardOpened) {
-                                alert("Бой за " + selectedSide + " против " + selectedOpponent);
+                                createLobby(selectedSide as LobbySide, selectedOpponent as LobbyOpponent)
+                                    .then(session => session.status === "IN_PROGRESS" ? router.push("/" + session.id) : router.push("/"))
+                                    .catch(errorMessage => {
+                                        setErrorShown(true);
+                                        console.log(errorMessage);
+                                    });
                             } else {
                                 setLobbyWizardOpened(true);
                             }
