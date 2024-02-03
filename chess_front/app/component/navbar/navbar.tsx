@@ -2,13 +2,22 @@
 
 
 import Link from "next/link";
-import {useState} from "react";
-import {UserDto, useUser} from "@/app/game/api";
-import {BoxArrowUpRight} from 'react-bootstrap-icons';
+import {useUser} from "@/app/game/api";
+import {clsx} from "clsx";
+import {getHost, setLoggedIn} from "@/app/utils";
+import {useRouter} from "next/navigation";
 
 export default function Navbar() {
-    const [user, setUser] = useState<UserDto | undefined>(undefined);
-    // useUser().then((userDto) => setUser(userDto))
+    const {user, isLoading: userLoading} = useUser();
+    const router = useRouter();
+
+    const logout = async () => {
+        return fetch(getHost() + "/chess/api/user/logout", {
+            method: "POST",
+            credentials: 'include',
+        }).then(() => setLoggedIn(false))
+            .then(() => router.push("/"));
+    }
 
     return (
         <nav className="navbar navbar-expand-sm bg-light">
@@ -36,10 +45,16 @@ export default function Navbar() {
                             <a className="nav-link active" href="/chess/settings">Настройки</a>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Никнейм" aria-label="Никнейм"/>
+                    <form className="d-flex me-5" role="search">
+                        <input className="form-control me-1" type="search" placeholder="Никнейм" aria-label="Никнейм"/>
                         <button className="btn btn-outline-success" type="submit">Искать</button>
                     </form>
+
+                    {user ?
+                        <button type="button" className="btn btn-outline-primary" onClick={logout}>Выйти</button> :
+                        <Link href="/login" type="button"
+                              className={clsx("btn btn-primary", userLoading && "disabled")}>Войти</Link>
+                    }
                 </div>
             </div>
         </nav>

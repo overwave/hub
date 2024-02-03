@@ -38,7 +38,6 @@ class SecurityConfiguration(
             it.requestMatchers("/chess/api/user/me", "/chess/api/game/start", "/chess/api/game/{id}/join")
                 .authenticated()
             it.anyRequest().permitAll()
-        }.httpBasic(withDefaults()).cors {
         }.formLogin {
             it.loginPage("/chess/login")
             it.loginProcessingUrl("/chess/api/user/login")
@@ -50,8 +49,9 @@ class SecurityConfiguration(
                 response.status = 403
             }
             it.permitAll()
+        }.cors {
         }.logout {
-            it.logoutUrl("/chess/logout")
+            it.logoutUrl("/chess/api/user/logout")
             it.deleteCookies("JSESSIONID")
             it.permitAll()
         }.csrf {

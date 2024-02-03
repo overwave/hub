@@ -14,7 +14,7 @@ import {
     SquareHalf
 } from "react-bootstrap-icons";
 import Link from "next/link";
-import {createLobby, LobbyOpponent, LobbySide, OpenSessionDto, useWaitingLobby} from "@/app/game/api";
+import {createLobby, LobbyOpponent, LobbySide, OpenSessionDto, useUser, useWaitingLobby} from "@/app/game/api";
 import {useCollapse} from 'react-collapsed'
 import {ReactNode, useState} from "react";
 import Radio from "@/app/component/radio/radio";
@@ -67,6 +67,7 @@ function PersonArmsUp() {
 
 export default function Lobby() {
     const router = useRouter();
+    const {user, isLoading: userLoading} = useUser();
     const {lobby} = useWaitingLobby();
     const loading = lobby?.openSessions === undefined;
     const empty = lobby?.openSessions?.length === 0;
@@ -160,6 +161,10 @@ export default function Lobby() {
                     }
                     <button
                         onClick={() => {
+                            if (!user) {
+                                router.push("/login");
+                                return;
+                            }
                             setErrorShown(false);
                             if (lobbyWizardOpened) {
                                 createLobby(selectedSide as LobbySide, selectedOpponent as LobbyOpponent)
