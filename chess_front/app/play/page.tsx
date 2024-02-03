@@ -2,7 +2,7 @@
 
 import {useState} from 'react'
 import styles from './styles.module.css'
-import Navbar from "@/app/component/navbar";
+import Navbar from "@/app/component/navbar/navbar";
 import {X} from 'react-bootstrap-icons';
 
 import {clsx} from 'clsx';
