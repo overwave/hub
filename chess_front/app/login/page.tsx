@@ -3,7 +3,7 @@
 import styles from './styles.module.css'
 import {FormEvent, useState} from "react";
 import {clsx} from 'clsx';
-import {getHost} from "@/app/utils";
+import {getHost, setLoggedIn} from "@/app/utils";
 import {useRouter} from 'next/navigation';
 import {ArrowLeft} from 'react-bootstrap-icons';
 
@@ -77,6 +77,7 @@ export default function Page() {
                 if (!response.ok) {
                     throw new Error("failed to login");
                 }
+                setLoggedIn(true);
                 router.push("/");
             })
             .catch(() => setSubStage("ServerError"));
@@ -106,6 +107,7 @@ export default function Page() {
             })
             .then(({result}) => {
                 if (result == "SUCCESS") {
+                    setLoggedIn(true);
                     router.push("/");
                 } else {
                     setSubStage("WrongPasswordError");

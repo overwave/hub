@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import {getHost} from "@/app/utils";
+import {getHost, isLoggedIn, setLoggedIn} from "@/app/utils";
 
 class HttpError extends Error {
     body: any;
@@ -69,11 +69,13 @@ export type UserDto = {
     login: string,
 }
 
-export async function useUser(): Promise<UserDto | undefined> {
-    return fetch(getHost() + "/chess/api/user/me", {
-        credentials: 'include',
-    }).then((response) => response.ok ? response.json() : Promise.resolve(undefined))
-        .catch(() => undefined);
+export function useUser(): { user: UserDto | undefined, isLoading: boolean } {
+    const loggedIn = isLoggedIn();
+    const {data, isLoading, error} = useSWR(getHost() + '/chess/api/user/me', (string) => {
+        return loggedIn ? fetcher(string) : undefined;
+    });
+    if (error) setLoggedIn(false);
+    return {user: data, isLoading};
 }
 
 export function useDemoMatch(): { board: BoardDto | undefined } {

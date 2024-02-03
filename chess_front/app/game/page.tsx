@@ -3,7 +3,7 @@
 import {useState} from 'react'
 import styles from './styles.module.css'
 import Board from "../component/board/board";
-import Navbar from "@/app/component/navbar";
+import Navbar from "@/app/component/navbar/navbar";
 import Chat from "@/app/component/chat/chat";
 import {useBoard} from "@/app/game/api";
 
