@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import {getHost, isLoggedIn, setLoggedIn} from "@/app/utils";
+import {ScopedMutator} from "swr/_internal";
 
 class HttpError extends Error {
     body: any;
@@ -76,6 +77,10 @@ export function useUser(): { user: UserDto | undefined, isLoading: boolean } {
     });
     if (error) setLoggedIn(false);
     return {user: data, isLoading};
+}
+
+export async function resetUser(mutate: ScopedMutator) {
+    return mutate(getHost() + '/chess/api/user/me');
 }
 
 export function useDemoMatch(): { board: BoardDto | undefined } {

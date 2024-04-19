@@ -18,8 +18,8 @@ export default function Chat() {
                         <div className={clsx(styles.message, "align-self-end")}>Привет!</div>
                         <div className={styles.message}>Как дела?</div>
                         <div className={clsx(styles.message, "align-self-end")}>Хорошо, а у тебя?</div>
-                        <div className={styles.message}>Как дела?</div>
-                        <div className={clsx(styles.message, "align-self-end")}>Хорошо, а у тебя?</div>
+                        {/*<div className={styles.message}>Как дела?</div>*/}
+                        {/*<div className={clsx(styles.message, "align-self-end")}>Хорошо, а у тебя?</div>*/}
                         {/*<div className={styles.message}>Как дела?</div>*/}
                         {/*<div className={clsx(styles.message, "align-self-end")}>Хорошо, а у тебя?</div>*/}
                     </div>
