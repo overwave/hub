@@ -23,7 +23,9 @@ export default function Page() {
 
                         <Chat></Chat>
                     </aside>
-                    <Board boardSupplier={useBoard}></Board>
+                    <main>
+                        <Board boardSupplier={useBoard} size="min(75vh, 60vw)"></Board>
+                    </main>
                     <aside className="d-block border border-primary border-2 h-50 my-auto">moves</aside>
                 </main>
             </div>

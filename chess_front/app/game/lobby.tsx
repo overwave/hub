@@ -134,9 +134,9 @@ export default function Lobby() {
                     <div className="mb-2">Выберите цвет фигур:</div>
                     <Radio name="side" callback={setSelectedSide} default="any" elements={
                         [
-                            ["any", <span><SquareHalf></SquareHalf> Любой</span>],
-                            ["white", <span><Square></Square> Белые</span>],
-                            ["black", <span><SquareFill></SquareFill> Чёрные</span>],
+                            ["any", <span key="any"><SquareHalf></SquareHalf> Любой</span>],
+                            ["white", <span key="white"><Square></Square> Белые</span>],
+                            ["black", <span key="black"><SquareFill></SquareFill> Чёрные</span>],
                         ]
                     }></Radio>
 
@@ -144,8 +144,8 @@ export default function Lobby() {
 
                     <Radio name="opponent" callback={setSelectedOpponent} default="bot" elements={
                         [
-                            ["bot", <span><Cpu className=""></Cpu> Бот</span>],
-                            ["player", <span><PersonArmsUp></PersonArmsUp> Человек</span>],
+                            ["bot", <span key="bot"><Cpu className=""></Cpu> Бот</span>],
+                            ["player", <span key="player"><PersonArmsUp></PersonArmsUp> Человек</span>],
                         ]
                     }></Radio>
 
