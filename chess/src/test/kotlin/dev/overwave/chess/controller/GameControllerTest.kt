@@ -7,6 +7,7 @@ import dev.overwave.chess.misc.TestUserFactory
 import dev.overwave.chess.model.Session
 import dev.overwave.chess.model.SessionStatus
 import dev.overwave.chess.readFile
+import dev.overwave.chess.readText
 import dev.overwave.chess.repository.SessionRepository
 import dev.overwave.chess.service.FigureColor
 import dev.overwave.chess.service.Opponent
@@ -74,6 +75,22 @@ class GameControllerTest(
             status { isOk() }
             content { contentType(MediaType.APPLICATION_JSON) }
             content { json(readFile("/game/start/response_with_bot.json")) }
+        }
+    }
+
+    @Test
+    @WithMockUser
+    fun `when join session then return session in progress`() {
+        val white = userFactory.createUser("user")
+        val whiteSession = sessionRepository.save(Session(white, null, SessionStatus.OPEN))
+        val black = userFactory.createUser("user1")
+
+        mockMvc.post("/chess/api/game/{id}/join", whiteSession.id) {
+            with(csrf())
+        }.andExpect {
+            status { isOk() }
+            content { contentType(MediaType.APPLICATION_JSON) }
+            content { json(readText("/game/start/response_with_bot.json")) }
         }
     }
 }
