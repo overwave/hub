@@ -109,3 +109,18 @@ export async function createLobby(side: LobbySide, opponent: LobbyOpponent): Pro
         return response.json();
     })
 }
+
+export async function joinLobby(lobbyId: number, side?: LobbySide): Promise<SimpleSessionDto> {
+    return fetch(getHost() + `/chess/api/game/${lobbyId}/join`, {
+        method: "POST",
+        body: JSON.stringify({side: side?.toUpperCase()}),
+        headers: {"Content-Type": "application/json"},
+        credentials: 'include',
+    }).then(async function (response) {
+        if (!response.ok) {
+            const json = await response.json();
+            throw "failed to create lobby: " + JSON.stringify(json, null, 2);
+        }
+        return response.json();
+    })
+}
