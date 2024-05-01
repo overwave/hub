@@ -45,7 +45,7 @@ function OpenSession(props: { openSession: OpenSessionDto, opened: boolean, clic
             {props.openSession.opponent.bot &&
                 <span className="badge text-bg-secondary me-1 align-text-top">Бот</span>}
             <span>{props.openSession.opponent.name}</span>
-            <Link href={"chess/users/" + props.openSession.opponent.login}>
+            <Link href={"users/" + props.openSession.opponent.login}>
                 <ArrowUpRightSquare className={styles.externalLink}></ArrowUpRightSquare>
             </Link>
 
