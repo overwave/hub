@@ -1,6 +1,5 @@
 package dev.overwave.chess.model
 
-import dev.overwave.chess.dto.LobbySide
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -12,7 +11,7 @@ import jakarta.persistence.ManyToOne
 class Lobby (
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    var user: User?,
+    var user: User,
 
     @Enumerated(EnumType.STRING)
     var status: LobbyStatus,

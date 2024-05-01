@@ -1,4 +1,4 @@
-package dev.overwave.chess.dto;
+package dev.overwave.chess.model;
 
 enum class LobbySide {
     WHITE,

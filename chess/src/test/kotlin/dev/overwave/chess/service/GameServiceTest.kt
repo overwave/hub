@@ -60,7 +60,7 @@ class GameServiceTest {
             sessionRepository.findAllByStatus(SessionStatus.OPEN)
         } returns listOf(getOpenedSession())
 
-        val actual = gameService.getOpenSessions().openSessions
+        val actual = gameService.getOpenLobbies().openLobbies
 
         verify(exactly = 1) {
             sessionRepository.findAllByStatus(SessionStatus.OPEN)

@@ -1,10 +1,11 @@
 package dev.overwave.chess.controller
 
 import dev.overwave.chess.dto.BoardResponseDto
-import dev.overwave.chess.dto.OpenSessionsListDto
+import dev.overwave.chess.dto.CreatedLobbyResponseDto
+import dev.overwave.chess.dto.LobbyRequestDto
+import dev.overwave.chess.dto.OpenLobbiesListDto
 import dev.overwave.chess.dto.PlayableSessionResponseDto
 import dev.overwave.chess.dto.SimpleSessionResponseDto
-import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.service.GameService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,12 +28,12 @@ class GameController(
     }
 
     @GetMapping("/open")
-    fun getOpenSessions(): OpenSessionsListDto {
-        return gameService.getOpenSessions()
+    fun getOpenLobbies(): OpenLobbiesListDto {
+        return gameService.getOpenLobbies()
     }
 
     @PostMapping("/start")
-    fun startGame(principal: Principal, @RequestBody request: StartSessionRequestDto): SimpleSessionResponseDto {
+    fun startGame(principal: Principal, @RequestBody request: LobbyRequestDto): CreatedLobbyResponseDto {
         return gameService.startGame(principal.name, request)
     }
 
