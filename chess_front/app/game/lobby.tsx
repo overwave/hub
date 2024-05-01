@@ -14,7 +14,15 @@ import {
     SquareHalf
 } from "react-bootstrap-icons";
 import Link from "next/link";
-import {createLobby, LobbyOpponent, LobbySide, OpenSessionDto, useUser, useWaitingLobby} from "@/app/game/api";
+import {
+    createLobby,
+    joinLobby,
+    LobbyOpponent,
+    LobbySide,
+    OpenSessionDto,
+    useUser,
+    useWaitingLobby
+} from "@/app/game/api";
 import {useCollapse} from 'react-collapsed'
 import {ReactNode, useState} from "react";
 import Radio from "@/app/component/radio/radio";
@@ -34,9 +42,27 @@ function getSideIcon(side: "WHITE" | "BLACK" | "ANY"): ReactNode {
 
 function OpenSession(props: { openSession: OpenSessionDto, opened: boolean, clickCallback: (_: number) => void }) {
     const {getCollapseProps, getToggleProps} = useCollapse({isExpanded: props.opened});
+    const [selectedSide, setSelectedSide] = useState<string | undefined>(undefined);
+    const router = useRouter();
+    const {user} = useUser();
+
     return (
         <button key={props.openSession.id} type="button"
-                {...getToggleProps({onClick: () => props.clickCallback(props.openSession.id)})}
+                {...getToggleProps({
+                    onClick: () => {
+                        if (!user) {
+                            router.push("/login");
+                            return;
+                        }
+                        if (props.openSession.opponentSide !== 'ANY') {
+                            joinLobby(props.openSession.id)
+                                .then(session => router.push(`/game?id=${session.id}`))
+                                .catch(reason => alert(reason));
+                        } else {
+                            props.clickCallback(props.openSession.id);
+                        }
+                    }
+                })}
                 className={clsx(
                     "btn btn-light text-start fs-5",
                     styles.sessionRequest,
@@ -52,7 +78,18 @@ function OpenSession(props: { openSession: OpenSessionDto, opened: boolean, clic
             <div {...getCollapseProps()}>
                 <div className="pt-3">Выберите цвет фигур:</div>
             </div>
-            {/*<ArrowRight className={clsx(styles.arrow)}></ArrowRight>*/}
+            {props.openSession.opponentSide === 'ANY' &&
+                <div {...getCollapseProps()}>
+                    <div className="pt-3">Выберите цвет фигур:</div>
+                    <Radio name="side" callback={setSelectedSide} elements={
+                        [
+                            ["white", <span key="white"><Square></Square> Белые</span>],
+                            ["black", <span key="black"><SquareFill></SquareFill> Чёрные</span>],
+                        ]
+                    }></Radio>
+                    <button type="button" className="btn btn-primary btn-sm">Присоединиться</button>
+                </div>
+            }
         </button>);
 }
 
