@@ -1,0 +1,78 @@
+@startuml
+
+object side {
+  FIRST
+  SECOND
+}
+
+object game_type {
+  CHESS
+  'GO
+  'SHOGI
+  'OTHELLO
+  'CHECKERS
+}
+
+object game_status {
+  IN_PROGRESS
+  FINISHED
+  'CANCELLED
+}
+
+object lobby_status {
+  CREATED
+  IN_GAME
+  'CANCELLED
+}
+
+map piece_type {
+  chess | 1 => PAWN
+  chess | 2 => KNIGHT
+  chess | 3 => BISHOP
+  chess | 4 => ROOK
+  chess | 5 => QUEEN
+  chess | 6 => KING
+}
+
+object player {
+  id: long
+  login: string
+  ...
+}
+
+object piece {
+  id: long
+  game: game
+  side: side
+  type: int
+}
+
+object game {
+  id: long
+  type: game_type
+  status: status
+  first_player: player
+  second_player: player
+}
+
+object lobby {
+  type: game_type
+  status: lobby_status
+  player: player
+  game: game (?)
+}
+
+piece::game --> game
+piece::side --> side
+piece::type --> piece_type
+
+game::type --> game_type
+game::status --> game_status
+game::first_player --> player
+game::second_player --> player
+
+lobby::type -u-> game_type
+lobby::lobby_status -u-> lobby_status
+lobby::player -u-> player
+
+@enduml
