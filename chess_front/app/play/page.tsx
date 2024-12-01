@@ -31,7 +31,7 @@ export default function Page() {
                                 <div className="pt-3 h4 row">
                                     <div className="col p-0">
                                         <div className="text-end">
-                                            <Link href="chess/users/hephaestus">
+                                            <Link href="users/hephaestus">
                                                 <span className="badge text-bg-secondary me-1 fs-6 align-bottom">Бот</span>
                                                 <span>Гефест</span>
                                             </Link>
@@ -40,7 +40,7 @@ export default function Page() {
                                     <div className={clsx(styles.versus, "col-auto")}><X></X></div>
                                     <div className="col p-0">
                                         <div className="text-start">
-                                            <Link href="chess/users/ares">
+                                            <Link href="users/ares">
                                                 <span className="badge text-bg-secondary me-1 fs-6 align-bottom">Бот</span>
                                                 <span>Арес</span>
                                             </Link>
