@@ -1,30 +1,5 @@
 package dev.overwave.chess.service
 
-import dev.overwave.chess.dto.FigureDto
-import dev.overwave.chess.dto.StartSessionRequestDto
-import dev.overwave.chess.dto.TileDto
-import dev.overwave.chess.exception.BotNotFoundException
-import dev.overwave.chess.exception.SessionNotFoundException
-import dev.overwave.chess.exception.SessionNotOpenedException
-import dev.overwave.chess.exception.UserNotFoundException
-import dev.overwave.chess.model.Session
-import dev.overwave.chess.model.SessionStatus
-import dev.overwave.chess.model.User
-import dev.overwave.chess.repository.FigureRepository
-import dev.overwave.chess.repository.LobbyRepository
-import dev.overwave.chess.repository.SessionHistoryRepository
-import dev.overwave.chess.repository.SessionMessageRepository
-import dev.overwave.chess.repository.SessionRepository
-import dev.overwave.chess.repository.UserRepository
-import dev.overwave.chess.repository.findByIdOrThrow
-import dev.overwave.chess.repository.findByLoginOrThrow
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
-
 //class GameServiceTest {
 //    private val user2: User = User("login2", "name2", "password2", false)
 //    private val user1: User = User("login1", "name1", "password1", false)
