@@ -1,7 +1,7 @@
-package dev.overwave.chess.dto;
+package dev.overwave.chess.dto
 
-import dev.overwave.chess.model.LobbySide;
-import dev.overwave.chess.service.Opponent;
+import dev.overwave.chess.model.LobbySide
+import dev.overwave.chess.service.Opponent
 
 data class LobbyRequestDto(
     val side: LobbySide,

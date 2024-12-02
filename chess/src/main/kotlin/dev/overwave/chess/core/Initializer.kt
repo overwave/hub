@@ -1,11 +1,9 @@
 package dev.overwave.chess.core
 
 class Initializer {
-
     private val greeting = "Hello, let's play chess!"
     private val board = Array(8) { Array(8) { "" } }
     private val blackFigures = arrayOf("♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜")
-
 
     fun fillBoardLikeAPro() {
         for ((y, row) in board.withIndex()) {
@@ -26,6 +24,5 @@ class Initializer {
         }
         println(ChessBoardParts.FRAME_BOTTOM.view)
         println(ChessBoardParts.ALPHABETICAL_INDEXES.view)
-
     }
 }

@@ -34,25 +34,20 @@ class GameServiceTest {
     private val figureRepository = mockk<FigureRepository>()
     private val sessionMessageRepository = mockk<SessionMessageRepository>()
     private val sessionHistoryRepository = mockk<SessionHistoryRepository>()
-    private val gameService = GameService(
-        sessionRepository,
-        userRepository,
-        figureRepository,
-        sessionHistoryRepository,
-        sessionMessageRepository
-    )
+    private val gameService =
+        GameService(
+            sessionRepository,
+            userRepository,
+            figureRepository,
+            sessionHistoryRepository,
+            sessionMessageRepository,
+        )
 
-    private fun getOpenedSession(): Session {
-        return Session(user1, null, SessionStatus.OPEN);
-    }
+    private fun getOpenedSession(): Session = Session(user1, null, SessionStatus.OPEN)
 
-    private fun getSessionWithBot(): Session {
-        return Session(user1, bot, SessionStatus.IN_PROGRESS)
-    }
+    private fun getSessionWithBot(): Session = Session(user1, bot, SessionStatus.IN_PROGRESS)
 
-    private fun getSessionWithPlayer(): Session {
-        return Session(user1, user2, SessionStatus.IN_PROGRESS)
-    }
+    private fun getSessionWithPlayer(): Session = Session(user1, user2, SessionStatus.IN_PROGRESS)
 
     @Test
     fun whenGetOpenSessions_thenOpenSessionsReturned() {
@@ -124,7 +119,6 @@ class GameServiceTest {
         every {
             userRepository.findTop1ByBotIsTrue()
         } returns null
-
 
         assertThrows<BotNotFoundException> { gameService.startGame(login, request) }
 

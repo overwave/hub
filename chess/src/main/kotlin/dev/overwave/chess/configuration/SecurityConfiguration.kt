@@ -6,7 +6,6 @@ import dev.overwave.chess.security.LoginStatus
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
-import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
@@ -18,7 +17,7 @@ import java.util.concurrent.TimeUnit
 @Profile("!test")
 @Configuration
 class SecurityConfiguration(
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
 ) {
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
@@ -33,36 +32,37 @@ class SecurityConfiguration(
     }
 
     @Bean
-    fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        return http.authorizeHttpRequests {
-            it.requestMatchers("/chess/api/user/me", "/chess/api/game/start", "/chess/api/game/{id}/join")
-                .authenticated()
-            it.anyRequest().permitAll()
-        }.formLogin {
-            it.loginPage("/chess/login")
-            it.loginProcessingUrl("/chess/api/user/login")
-            it.successHandler { _, response, _ ->
-                response.writer.write(objectMapper.writeValueAsString(LoginDto(LoginStatus.SUCCESS)))
-            }
-            it.failureHandler { _, response, _ ->
-                response.writer.write(objectMapper.writeValueAsString(LoginDto(LoginStatus.FAILED)))
-                response.status = 403
-            }
-            it.permitAll()
-        }.cors {
-        }.logout {
-            it.logoutUrl("/chess/api/user/logout")
-            it.deleteCookies("JSESSIONID")
-            it.permitAll()
-        }.csrf {
-            it.disable() // TODO enable
-        }.rememberMe {
-            it.rememberMeCookieName("logged_id")
-            it.tokenValiditySeconds(TimeUnit.DAYS.toSeconds(30).toInt())
-            it.useSecureCookie(true)
-            it.key("secret")
-        }.build()
-    }
+    fun filterChain(http: HttpSecurity): SecurityFilterChain =
+        http
+            .authorizeHttpRequests {
+                it
+                    .requestMatchers("/chess/api/user/me", "/chess/api/game/start", "/chess/api/game/{id}/join")
+                    .authenticated()
+                it.anyRequest().permitAll()
+            }.formLogin {
+                it.loginPage("/chess/login")
+                it.loginProcessingUrl("/chess/api/user/login")
+                it.successHandler { _, response, _ ->
+                    response.writer.write(objectMapper.writeValueAsString(LoginDto(LoginStatus.SUCCESS)))
+                }
+                it.failureHandler { _, response, _ ->
+                    response.writer.write(objectMapper.writeValueAsString(LoginDto(LoginStatus.FAILED)))
+                    response.status = 403
+                }
+                it.permitAll()
+            }.cors {
+            }.logout {
+                it.logoutUrl("/chess/api/user/logout")
+                it.deleteCookies("JSESSIONID")
+                it.permitAll()
+            }.csrf {
+                it.disable() // TODO enable
+            }.rememberMe {
+                it.rememberMeCookieName("logged_id")
+                it.tokenValiditySeconds(TimeUnit.DAYS.toSeconds(30).toInt())
+                it.useSecureCookie(true)
+                it.key("secret")
+            }.build()
 
     @Bean
     fun passwordEncoder() = BCryptPasswordEncoder()

@@ -9,26 +9,23 @@ import dev.overwave.chess.model.Lobby
 import dev.overwave.chess.model.Session
 import dev.overwave.chess.model.User
 
-fun toCreatedLobbyResponseDto(session: Session): CreatedLobbyResponseDto {
-    return CreatedLobbyResponseDto(
+fun toCreatedLobbyResponseDto(session: Session): CreatedLobbyResponseDto =
+    CreatedLobbyResponseDto(
         null,
-        session.id
-    )
-}
-
-fun toCreatedLobbyResponseDto(lobby: Lobby): CreatedLobbyResponseDto {
-    return CreatedLobbyResponseDto(
-        lobby.id,
-        null
-    )
-}
-
-fun toSimpleSessionResponseDto(session: Session): SimpleSessionResponseDto {
-    return SimpleSessionResponseDto(
         session.id,
-        session.status
     )
-}
+
+fun toCreatedLobbyResponseDto(lobby: Lobby): CreatedLobbyResponseDto =
+    CreatedLobbyResponseDto(
+        lobby.id,
+        null,
+    )
+
+fun toSimpleSessionResponseDto(session: Session): SimpleSessionResponseDto =
+    SimpleSessionResponseDto(
+        session.id,
+        session.status,
+    )
 
 fun toOpenLobbyDto(lobby: Lobby): OpenLobbyDto {
     val opponent = lobby.user
@@ -36,19 +33,18 @@ fun toOpenLobbyDto(lobby: Lobby): OpenLobbyDto {
     return OpenLobbyDto(
         lobby.id,
         toPlayerDto(opponent),
-        opponentSide
+        opponentSide,
     )
 }
 
-private fun getOpponentAndSide(white: User?, black: User?): Pair<User, Side> {
-    return if (white != null) {
+private fun getOpponentAndSide(white: User?, black: User?): Pair<User, Side> =
+    if (white != null) {
         white to Side.WHITE
     } else if (black != null) {
         black to Side.BLACK
     } else {
         throw IllegalStateException()
     }
-}
 
 fun toPlayableSessionResponseDto(): PlayableSessionResponseDto {
     TODO()

@@ -1,6 +1,8 @@
 package dev.overwave.chess.core
 
-enum class ChessBoardParts(val view: String) {
+enum class ChessBoardParts(
+    val view: String,
+) {
     FRAME_TOP("╔════════════════╗"),
     EMPTY_CELLS_1("║  ██  ██  ██  ██║"),
     EMPTY_CELLS_2("║██  ██  ██  ██  ║"),
@@ -9,5 +11,5 @@ enum class ChessBoardParts(val view: String) {
     WHITE_FIGURES(""),
     WHITE_PAWNS(""),
     FRAME_BOTTOM("╚════════════════╝"),
-    ALPHABETICAL_INDEXES(" a b c d e f g h")
+    ALPHABETICAL_INDEXES(" a b c d e f g h"),
 }

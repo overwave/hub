@@ -8,20 +8,14 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 
 @Entity
-class Lobby (
+class Lobby(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     var user: User,
-
     @Enumerated(EnumType.STRING)
     var status: LobbyStatus,
-
     @Enumerated(EnumType.STRING)
     var side: LobbySide,
-
-    ) : LongGenAud() {
-
-    override fun toString(): String {
-        return "Lobby(id=$id, status=$status)"
-    }
+) : LongGenAud() {
+    override fun toString(): String = "Lobby(id=$id, status=$status)"
 }

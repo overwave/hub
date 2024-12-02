@@ -14,16 +14,13 @@ open class LongGenAud(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = -1,
-
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: Instant = Instant.now(),
-
     @Version
     @Column(name = "updated_at", nullable = false)
-    var updatedAt: Instant = Instant.now()
+    var updatedAt: Instant = Instant.now(),
 ) {
-
     override fun equals(other: Any?) = if (other !is LongGenAud) false else other.id == id
 
     override fun hashCode() = id.hashCode()

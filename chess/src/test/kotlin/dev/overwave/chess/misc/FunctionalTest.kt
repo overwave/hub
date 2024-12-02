@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @AutoConfigureMockMvc
 @AutoConfigureEmbeddedDatabase(
     provider = AutoConfigureEmbeddedDatabase.DatabaseProvider.ZONKY,
-    refresh = AutoConfigureEmbeddedDatabase.RefreshMode.AFTER_CLASS
+    refresh = AutoConfigureEmbeddedDatabase.RefreshMode.AFTER_CLASS,
 )
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ActiveProfiles("test")

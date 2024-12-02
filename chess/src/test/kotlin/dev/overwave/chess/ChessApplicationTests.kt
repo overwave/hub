@@ -1,12 +1,10 @@
 package dev.overwave.chess
 
 // for now disabled
-//@UnitTest
-//@SpringBootTest
+// @UnitTest
+// @SpringBootTest
 class ChessApplicationTests {
-
-//    @Test
+    //    @Test
     fun contextLoads() {
     }
-
 }

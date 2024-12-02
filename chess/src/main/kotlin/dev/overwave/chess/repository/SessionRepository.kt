@@ -12,6 +12,4 @@ interface SessionRepository : JpaRepository<Session, Long> {
     fun findAllByStatus(status: SessionStatus): List<Session>
 }
 
-fun SessionRepository.findByIdOrThrow(id: Long): Session {
-    return findByIdOrNull(id) ?: throw SessionNotFoundException(id)
-}
+fun SessionRepository.findByIdOrThrow(id: Long): Session = findByIdOrNull(id) ?: throw SessionNotFoundException(id)

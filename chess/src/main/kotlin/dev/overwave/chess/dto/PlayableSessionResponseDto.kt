@@ -11,5 +11,5 @@ data class PlayableSessionResponseDto(
     val status: SessionStatus,
     val board: BoardResponseDto,
     val turnHistory: List<SessionHistoryDto>,
-    val chatHistory: List<SessionMessageDto>
+    val chatHistory: List<SessionMessageDto>,
 )

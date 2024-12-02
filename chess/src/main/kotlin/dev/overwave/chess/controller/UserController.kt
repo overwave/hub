@@ -21,9 +21,7 @@ class UserController(
     @GetMapping("/check")
     fun checkUserExists(
         @RequestParam login: String,
-    ): CheckUserDto {
-        return userService.checkUserExists(login)
-    }
+    ): CheckUserDto = userService.checkUserExists(login)
 
     @PostMapping("/register")
     fun registerUser(
@@ -33,7 +31,5 @@ class UserController(
     }
 
     @GetMapping("/me")
-    fun selfInfo(principal: Principal): UserDto {
-        return userService.selfInfo(principal.name)
-    }
+    fun selfInfo(principal: Principal): UserDto = userService.selfInfo(principal.name)
 }

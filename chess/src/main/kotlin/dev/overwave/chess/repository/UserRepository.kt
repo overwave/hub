@@ -7,9 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface UserRepository : JpaRepository<User, Long> {
     fun findByLogin(login: String): User?
 
-    fun findTop1ByBotIsTrue() : User?
+    fun findTop1ByBotIsTrue(): User?
 }
 
-fun UserRepository.findByLoginOrThrow(login: String): User {
-    return findByLogin(login) ?: throw UserNotFoundException(login)
-}
+fun UserRepository.findByLoginOrThrow(login: String): User = findByLogin(login) ?: throw UserNotFoundException(login)

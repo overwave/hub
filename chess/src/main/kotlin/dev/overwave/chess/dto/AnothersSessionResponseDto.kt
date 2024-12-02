@@ -13,5 +13,5 @@ data class AnothersSessionResponseDto(
     val status: SessionStatus,
     val board: BoardResponseDto,
     val turnHistory: List<SessionHistory>,
-    val chatHistory: List<SessionMessage>
+    val chatHistory: List<SessionMessage>,
 )
