@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import {getHost, isLoggedIn, setLoggedIn} from "@/app/utils";
+import {ScopedMutator} from "swr/_internal";
 
 class HttpError extends Error {
     body: any;
@@ -78,6 +79,10 @@ export function useUser(): { user: UserDto | undefined, isLoading: boolean } {
     return {user: data, isLoading};
 }
 
+export async function resetUser(mutate: ScopedMutator) {
+    return mutate(getHost() + '/chess/api/user/me');
+}
+
 export function useDemoMatch(): { board: BoardDto | undefined } {
     const {data} = useSWR(getHost() + '/chess/api/game/board', fetcher);
     return {board: data ? {board: new Map(Object.entries(data.board))} : undefined};
@@ -94,6 +99,21 @@ export async function createLobby(side: LobbySide, opponent: LobbyOpponent): Pro
     return fetch(getHost() + "/chess/api/game/start", {
         method: "POST",
         body: JSON.stringify({side: side.toUpperCase(), opponent: opponent.toUpperCase()}),
+        headers: {"Content-Type": "application/json"},
+        credentials: 'include',
+    }).then(async function (response) {
+        if (!response.ok) {
+            const json = await response.json();
+            throw "failed to create lobby: " + JSON.stringify(json, null, 2);
+        }
+        return response.json();
+    })
+}
+
+export async function joinLobby(lobbyId: number, side?: LobbySide): Promise<SimpleSessionDto> {
+    return fetch(getHost() + `/chess/api/game/${lobbyId}/join`, {
+        method: "POST",
+        body: JSON.stringify({side: side?.toUpperCase()}),
         headers: {"Content-Type": "application/json"},
         credentials: 'include',
     }).then(async function (response) {

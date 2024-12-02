@@ -2,20 +2,25 @@
 
 
 import Link from "next/link";
-import {useUser} from "@/app/game/api";
+import {resetUser, useUser} from "@/app/game/api";
 import {clsx} from "clsx";
 import {getHost, setLoggedIn} from "@/app/utils";
 import {useRouter} from "next/navigation";
+import {useSWRConfig} from "swr";
 
 export default function Navbar() {
     const {user, isLoading: userLoading} = useUser();
+    const { mutate } = useSWRConfig();
     const router = useRouter();
 
     const logout = async () => {
         return fetch(getHost() + "/chess/api/user/logout", {
             method: "POST",
             credentials: 'include',
-        }).then(() => setLoggedIn(false))
+        }).then(() => {
+            setLoggedIn(false);
+            return resetUser(mutate);
+        })
             .then(() => router.push("/"));
     }
 
@@ -51,7 +56,10 @@ export default function Navbar() {
                     </form>
 
                     {user ?
-                        <button type="button" className="btn btn-outline-primary" onClick={logout}>Выйти</button> :
+                        [
+                            <Link key="2" href={`/user/${user.login}`} className="pe-3">{user.login}</Link>,
+                            <button key="1" type="button" className="btn btn-outline-primary" onClick={logout}>Выйти</button>
+                        ] :
                         <Link href="/login" type="button"
                               className={clsx("btn btn-primary", userLoading && "disabled")}>Войти</Link>
                     }
