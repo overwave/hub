@@ -14,7 +14,6 @@ class UserService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
 ) : UserDetailsService {
-
     override fun loadUserByUsername(login: String): UserDetails {
         val user = userRepository.findByLogin(login) ?: throw UsernameNotFoundException("User not found")
         return UserDetailsDto(user.login, user.password, listOf())
@@ -33,7 +32,7 @@ class UserService(
                 password = passwordEncoder.encode(password),
                 name = "Anonymous",
                 bot = false,
-            )
+            ),
         )
     }
 

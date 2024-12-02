@@ -10,6 +10,5 @@ class Dummy : ApplicationListener<ApplicationReadyEvent> {
         val initializer = Initializer()
         initializer.fillBoardLikeAPro()
         initializer.printChessBoardLikePro()
-
-        }
+    }
 }

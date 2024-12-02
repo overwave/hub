@@ -1,10 +1,11 @@
 package dev.overwave.chess.controller
 
 import dev.overwave.chess.dto.BoardResponseDto
-import dev.overwave.chess.dto.OpenSessionsListDto
+import dev.overwave.chess.dto.CreatedLobbyResponseDto
+import dev.overwave.chess.dto.LobbyRequestDto
+import dev.overwave.chess.dto.OpenLobbiesListDto
 import dev.overwave.chess.dto.PlayableSessionResponseDto
 import dev.overwave.chess.dto.SimpleSessionResponseDto
-import dev.overwave.chess.dto.StartSessionRequestDto
 import dev.overwave.chess.service.GameService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,31 +19,28 @@ import java.security.Principal
 @RestController
 @RequestMapping(path = ["/chess/api/game"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class GameController(
-    private val gameService: GameService
+    private val gameService: GameService,
 ) {
-
     @GetMapping("/board")
-    fun getBoard(principal: Principal?): BoardResponseDto {
-        return gameService.getBoard()
-    }
+    fun getBoard(principal: Principal?): BoardResponseDto = gameService.getBoard()
 
     @GetMapping("/open")
-    fun getOpenSessions(): OpenSessionsListDto {
-        return gameService.getOpenSessions()
-    }
+    fun getOpenLobbies(): OpenLobbiesListDto = gameService.getOpenLobbies()
 
     @PostMapping("/start")
-    fun startGame(principal: Principal, @RequestBody request: StartSessionRequestDto): SimpleSessionResponseDto {
-        return gameService.startGame(principal.name, request)
-    }
+    fun startGame(
+        principal: Principal,
+        @RequestBody request: LobbyRequestDto,
+    ): CreatedLobbyResponseDto = gameService.startGame(principal.name, request)
 
     @PostMapping("/{id}/join")
-    fun joinSession(principal: Principal, @PathVariable id: Long): SimpleSessionResponseDto {
-        return gameService.joinSession(principal.name, id)
-    }
+    fun joinSession(
+        principal: Principal,
+        @PathVariable id: Long,
+    ): SimpleSessionResponseDto = gameService.joinSession(principal.name, id)
 
     @GetMapping("/{id}")
-    fun getSession(@PathVariable id: Long): PlayableSessionResponseDto {
-        return gameService.getSession(id)
-    }
+    fun getSession(
+        @PathVariable id: Long,
+    ): PlayableSessionResponseDto = gameService.getSession(id)
 }

@@ -9,7 +9,5 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = ["/chess/api"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class ApiController {
     @GetMapping
-    fun test(): String {
-        return "Hello world"
-    }
+    fun test(): String = "Hello world"
 }

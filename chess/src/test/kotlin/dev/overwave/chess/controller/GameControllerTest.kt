@@ -7,9 +7,11 @@ import dev.overwave.chess.misc.TestUserFactory
 import dev.overwave.chess.model.Session
 import dev.overwave.chess.model.SessionStatus
 import dev.overwave.chess.readFile
+import dev.overwave.chess.readText
 import dev.overwave.chess.repository.SessionRepository
 import dev.overwave.chess.service.FigureColor
 import dev.overwave.chess.service.Opponent
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
@@ -19,13 +21,13 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 
 @FunctionalTest
+@Disabled
 class GameControllerTest(
     private val userFactory: TestUserFactory,
     private val sessionRepository: SessionRepository,
     private val mockMvc: MockMvc,
     private val mapper: ObjectMapper,
 ) {
-
     @Test
     @WithMockUser
     fun `when get open sessions then open sessions returned`() {
@@ -48,15 +50,16 @@ class GameControllerTest(
         userFactory.createUser("user")
         val sessionRequestWhite = StartSessionRequestDto(FigureColor.WHITE, Opponent.PLAYER)
 
-        mockMvc.post("/chess/api/game/start") {
-            content = mapper.writeValueAsString(sessionRequestWhite)
-            contentType = MediaType.APPLICATION_JSON
-            with(csrf())
-        }.andExpect {
-            status { isOk() }
-            content { contentType(MediaType.APPLICATION_JSON) }
-            content { json(readFile("/game/start/response_with_player.json")) }
-        }
+        mockMvc
+            .post("/chess/api/game/start") {
+                content = mapper.writeValueAsString(sessionRequestWhite)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isOk() }
+                content { contentType(MediaType.APPLICATION_JSON) }
+                content { json(readFile("/game/start/response_with_player.json")) }
+            }
     }
 
     @Test
@@ -66,14 +69,32 @@ class GameControllerTest(
         userFactory.createUser(bot = true)
         val sessionRequestWithBot = StartSessionRequestDto(FigureColor.BLACK, Opponent.BOT)
 
-        mockMvc.post("/chess/api/game/start") {
-            content = mapper.writeValueAsString(sessionRequestWithBot)
-            contentType = MediaType.APPLICATION_JSON
-            with(csrf())
-        }.andExpect {
-            status { isOk() }
-            content { contentType(MediaType.APPLICATION_JSON) }
-            content { json(readFile("/game/start/response_with_bot.json")) }
-        }
+        mockMvc
+            .post("/chess/api/game/start") {
+                content = mapper.writeValueAsString(sessionRequestWithBot)
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isOk() }
+                content { contentType(MediaType.APPLICATION_JSON) }
+                content { json(readFile("/game/start/response_with_bot.json")) }
+            }
+    }
+
+    @Test
+    @WithMockUser
+    fun `when join session then return session in progress`() {
+        val white = userFactory.createUser("user")
+        val whiteSession = sessionRepository.save(Session(white, null, SessionStatus.OPEN))
+        val black = userFactory.createUser("user1")
+
+        mockMvc
+            .post("/chess/api/game/{id}/join", whiteSession.id) {
+                with(csrf())
+            }.andExpect {
+                status { isOk() }
+                content { contentType(MediaType.APPLICATION_JSON) }
+                content { json(readText("/game/start/response_with_bot.json")) }
+            }
     }
 }

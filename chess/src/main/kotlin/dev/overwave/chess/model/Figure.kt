@@ -11,26 +11,16 @@ import jakarta.persistence.ManyToOne
 
 @Entity
 class Figure(
-
     @Enumerated(EnumType.STRING)
     var type: FigureType,
-
     @Enumerated(EnumType.STRING)
     val side: FigureColor,
-
     var file: String,
-
     var rank: Int,
-
     var taken: Boolean,
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "session_id")
-    val session: Session
-
+    val session: Session,
 ) : LongGenAud() {
-
-    override fun toString(): String {
-        return "Figure(id=$id)"
-    }
+    override fun toString(): String = "Figure(id=$id)"
 }

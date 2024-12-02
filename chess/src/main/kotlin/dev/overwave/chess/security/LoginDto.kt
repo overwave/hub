@@ -1,7 +1,7 @@
 package dev.overwave.chess.security
 
 data class LoginDto(
-    val result: LoginStatus
+    val result: LoginStatus,
 )
 
 enum class LoginStatus {

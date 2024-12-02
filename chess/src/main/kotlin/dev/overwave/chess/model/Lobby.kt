@@ -8,15 +8,14 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 
 @Entity
-class Session(
+class Lobby(
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "white_player_id")
-    var whitePlayer: User?,
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "black_player_id")
-    var blackPlayer: User?,
+    @JoinColumn(name = "user_id")
+    var user: User,
     @Enumerated(EnumType.STRING)
-    var status: SessionStatus,
+    var status: LobbyStatus,
+    @Enumerated(EnumType.STRING)
+    var side: LobbySide,
 ) : LongGenAud() {
-    override fun toString(): String = "Session(id=$id, status=$status)"
+    override fun toString(): String = "Lobby(id=$id, status=$status)"
 }

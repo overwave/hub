@@ -6,5 +6,5 @@ enum class FigureType {
     BISHOP,
     ROOK,
     QUEEN,
-    KING
+    KING,
 }
