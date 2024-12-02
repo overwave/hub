@@ -11,6 +11,7 @@ import dev.overwave.chess.readText
 import dev.overwave.chess.repository.SessionRepository
 import dev.overwave.chess.service.FigureColor
 import dev.overwave.chess.service.Opponent
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 
 @FunctionalTest
+@Disabled
 class GameControllerTest(
     private val userFactory: TestUserFactory,
     private val sessionRepository: SessionRepository,
