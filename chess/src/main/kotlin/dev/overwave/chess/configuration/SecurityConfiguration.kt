@@ -14,7 +14,6 @@ import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import java.util.concurrent.TimeUnit
 
-@Profile("!test")
 @Configuration
 class SecurityConfiguration(
     private val objectMapper: ObjectMapper,
@@ -65,5 +64,6 @@ class SecurityConfiguration(
             }.build()
 
     @Bean
+    @Profile("!test")
     fun passwordEncoder() = BCryptPasswordEncoder()
 }
