@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface LobbyRepository : JpaRepository<Lobby, Long> {
     fun findAllByStatus(status: LobbyStatus): List<Lobby>
-
-    fun LobbyRepository.findByIdOrThrow(id: Long): Lobby = findByIdOrNull(id) ?: throw LobbyNotFoundException(id)
 }
+
+fun LobbyRepository.findByIdOrThrow(id: Long): Lobby = findByIdOrNull(id) ?: throw LobbyNotFoundException(id)
