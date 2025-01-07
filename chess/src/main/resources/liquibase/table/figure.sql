@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset author:lizunya figure_create_table
+--changeset lizunya:figure_create_table
 CREATE TABLE IF NOT EXISTS figure
 (
     id         BIGSERIAL PRIMARY KEY,

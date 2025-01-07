@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset author:lizunya session_create_table
+--changeset lizunya:session_create_table
 CREATE TABLE IF NOT EXISTS lobby
 (
     id              BIGSERIAL   PRIMARY KEY,
