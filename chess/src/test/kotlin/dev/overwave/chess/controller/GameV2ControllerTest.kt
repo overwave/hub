@@ -24,7 +24,7 @@ class GameV2ControllerTest(
             }.andExpect {
                 status { isOk() }
                 content { contentType(MediaType.APPLICATION_JSON) }
-                content { json(readFile("/game/v2/start/response_with_player.json")) }
+                content { json(readFile("/game/v2/start/response_with_player.json"), strict = true) }
             }
     }
 }

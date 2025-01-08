@@ -7,6 +7,6 @@ class GameService {
     fun startGame(): Any {
         // create game
         // create pieces
-        return ChessBoard(listOf())
+        return ChessBoard(listOf(ChessPiece("a2".toPosition(), "PAWN", "WHITE")))
     }
 }
