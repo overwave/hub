@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset author:lizunya session_create_table
+--changeset lizunya:session_create_table
 CREATE TABLE IF NOT EXISTS session
 (
     id              BIGSERIAL PRIMARY KEY,
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS session
     status          TEXT        NOT NULL
 );
 
---changeset author:lizunya players_id_not_null
+--changeset lizunya:players_id_not_null
 ALTER TABLE session
-    ALTER COLUMN white_player_id SET NOT NULL
+    ALTER COLUMN white_player_id SET NOT NULL,
     ALTER COLUMN black_player_id SET NOT NULL;

@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset author:lizunya session_history_create_table
+--changeset lizunya:session_history_create_table
 CREATE TABLE IF NOT EXISTS session_history
 (
     id         BIGSERIAL PRIMARY KEY,

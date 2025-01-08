@@ -12,7 +12,7 @@ group = "dev.overwave"
 version = "0.0.1-SNAPSHOT"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
@@ -41,21 +41,21 @@ dependencies {
     }
     testImplementation("org.assertj:assertj-core:3.25.1")
     testImplementation("org.springframework.security:spring-security-test")
-    testImplementation("io.zonky.test:embedded-database-spring-test:2.4.0")
-    testImplementation("io.zonky.test:embedded-postgres:2.0.5")
+    testImplementation("io.zonky.test:embedded-database-spring-test:2.6.0")
+    testImplementation("io.zonky.test:embedded-postgres:2.1.0")
     testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    systemProperty ("spring.profiles.active", "test")
+    systemProperty("spring.profiles.active", "test")
 }
 
 tasks.bootBuildImage {

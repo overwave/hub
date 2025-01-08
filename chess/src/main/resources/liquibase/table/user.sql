@@ -13,6 +13,6 @@ CREATE TABLE IF NOT EXISTS user_
     updated_at TIMESTAMPTZ NOT NULL
 );
 
---changeset author:overwave user_drop_ip
+--changeset overwave:user_drop_ip
 ALTER TABLE user_
     DROP COLUMN IF EXISTS ip;

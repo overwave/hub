@@ -32,7 +32,7 @@ import kotlin.random.Random
 
 private const val BOT_LOGIN: String = "bot"
 
-@Service
+@Service("oldGameService")
 class GameService(
     private val lobbyRepository: LobbyRepository,
     private val sessionRepository: SessionRepository,
