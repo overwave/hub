@@ -1,2 +1,9 @@
 {
+  "pieces": [
+    {
+      "position": "a2",
+      "type": "PAWN",
+      "side": "WHITE"
+    }
+  ]
 }
