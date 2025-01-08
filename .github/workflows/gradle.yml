@@ -22,12 +22,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Run gradle tests
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: "8.10"
+
+      - name: Assemble the project
+        run: ./gradlew assemble
+
       - name: Run the tests
-        run: gradle test
+        run: ./gradlew test
+
       - uses: actions/upload-artifact@v3
         with:
           name: Package
