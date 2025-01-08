@@ -30,7 +30,7 @@ jobs:
         run: ./gradlew build
 
       - name: Run the tests
-        run: ./gradlew test
+        run: ./gradlew test --debug
 
       - uses: actions/upload-artifact@v3
         with:
