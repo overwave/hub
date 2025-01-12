@@ -18,5 +18,8 @@ databaseChangeLog:
       file: table/spring_session.sql
       relativeToChangelogFile: true
   - include:
+      file: table/game.sql
+      relativeToChangelogFile: true
+  - include:
       file: table/spring_session_attributes.sql
       relativeToChangelogFile: true

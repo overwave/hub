@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.post
 
 @FunctionalTest
 @Disabled
-class GameControllerTest(
+class ChessControllerTest(
     private val userFactory: TestUserFactory,
     private val sessionRepository: SessionRepository,
     private val mockMvc: MockMvc,

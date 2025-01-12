@@ -4,6 +4,11 @@ data class Position(
     val x: Int,
     val y: Int,
 ) {
+    init {
+        require(x in 1..19)
+        require(y in 1..19)
+    }
+
     val file = 'a'.plus(if (x > 8) x - 2 else x - 1)
     val rank = y.toString()
 
@@ -11,17 +16,15 @@ data class Position(
 }
 
 fun String.toPosition(): Position {
-    var x = 0
-    var y = 0
-    for (char in this) {
-        if (char in '0'..'9') {
-            y = y * 10 + char.code - '0'.code
-        } else if (char in 'a'..'t' && char != 'i') {
-            x = x * 10 + char.code - 'a'.code + 1
-            if (char.code > 'i'.code) x--
-        } else {
-            throw IllegalArgumentException(this)
+    if (this.length !in 2..3) throw IllegalArgumentException("Invalid input string $this")
+    val x =
+        when (val fileChar = this[0]) {
+            in 'a'..'h' -> fileChar - 'a' + 1
+            in 'j'..'t' -> fileChar - 'a' // 'j' starts from 9 as 'i' is skipped
+            else -> throw IllegalArgumentException("Invalid input string $this")
         }
-    }
-    return Position(x = x, y = y)
+
+    val y = this.substring(1).toIntOrNull()
+    if (y !in 1..19) throw IllegalArgumentException("Invalid input string $this")
+    return Position(x = x, y = y!!)
 }
