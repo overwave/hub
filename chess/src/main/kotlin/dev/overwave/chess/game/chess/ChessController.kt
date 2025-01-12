@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping(path = ["/chess/api/game/v2"], produces = [MediaType.APPLICATION_JSON_VALUE])
-class GameController(
-    private val gameService: GameService,
+class ChessController(
+    private val chessService: ChessService,
 ) {
     @PutMapping("/start")
-    fun startGame(): Any = gameService.startGame()
+    fun startGame(): Any = chessService.startGame()
 }
