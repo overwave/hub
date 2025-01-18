@@ -25,8 +25,8 @@ import dev.overwave.chess.repository.SessionHistoryRepository
 import dev.overwave.chess.repository.SessionMessageRepository
 import dev.overwave.chess.repository.SessionRepository
 import dev.overwave.chess.repository.UserRepository
-import dev.overwave.chess.repository.findByIdOrThrow
 import dev.overwave.chess.repository.doFindByLogin
+import dev.overwave.chess.repository.findByIdOrThrow
 import org.springframework.stereotype.Service
 import kotlin.random.Random
 
