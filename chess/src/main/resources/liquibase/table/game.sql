@@ -1,7 +1,7 @@
 --liquibase formatted sql
 
 --changeset overwave:game_status_type
-CREATE TYPE game_status AS ENUM ('WHITES_TURN','BLACKS_TURN','FINISHED','CANCELLED');
+CREATE TYPE game_status AS ENUM ('WHITES_TURN', 'BLACKS_TURN', 'FINISHED', 'CANCELLED');
 
 --changeset overwave:game_table
 CREATE TABLE IF NOT EXISTS game

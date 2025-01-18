@@ -21,7 +21,7 @@ class GameV2ControllerTest(
     private val mapper: ObjectMapper,
 ) {
     @Test
-    fun `base start game test`() {
+    fun `start game returns filled board`() {
         userFactory.createUser("user")
         mockMvc
             .put("/chess/api/game/v2/start") {

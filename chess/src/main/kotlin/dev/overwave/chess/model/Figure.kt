@@ -1,7 +1,7 @@
 package dev.overwave.chess.model
 
 import dev.overwave.chess.service.FigureColor
-import dev.overwave.chess.service.FigureType
+import dev.overwave.chess.service.PieceType
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne
 @Entity
 class Figure(
     @Enumerated(EnumType.STRING)
-    var type: FigureType,
+    var type: PieceType,
     @Enumerated(EnumType.STRING)
     val side: FigureColor,
     var file: String,

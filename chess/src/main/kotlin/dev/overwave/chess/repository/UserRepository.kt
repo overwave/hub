@@ -10,4 +10,4 @@ interface UserRepository : JpaRepository<User, Long> {
     fun findTop1ByBotIsTrue(): User?
 }
 
-fun UserRepository.findByLoginOrThrow(login: String): User = findByLogin(login) ?: throw UserNotFoundException(login)
+fun UserRepository.doFindByLogin(login: String): User = findByLogin(login) ?: throw UserNotFoundException(login)

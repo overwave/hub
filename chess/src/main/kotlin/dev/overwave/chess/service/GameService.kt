@@ -26,7 +26,7 @@ import dev.overwave.chess.repository.SessionMessageRepository
 import dev.overwave.chess.repository.SessionRepository
 import dev.overwave.chess.repository.UserRepository
 import dev.overwave.chess.repository.findByIdOrThrow
-import dev.overwave.chess.repository.findByLoginOrThrow
+import dev.overwave.chess.repository.doFindByLogin
 import org.springframework.stereotype.Service
 import kotlin.random.Random
 
@@ -43,14 +43,14 @@ class GameService(
 ) {
     private val figureLayout =
         mapOf(
-            "a" to FigureType.ROOK,
-            "b" to FigureType.KNIGHT,
-            "c" to FigureType.BISHOP,
-            "d" to FigureType.QUEEN,
-            "e" to FigureType.KING,
-            "f" to FigureType.BISHOP,
-            "g" to FigureType.KNIGHT,
-            "h" to FigureType.ROOK,
+            "a" to PieceType.ROOK,
+            "b" to PieceType.KNIGHT,
+            "c" to PieceType.BISHOP,
+            "d" to PieceType.QUEEN,
+            "e" to PieceType.KING,
+            "f" to PieceType.BISHOP,
+            "g" to PieceType.KNIGHT,
+            "h" to PieceType.ROOK,
         )
 
     fun getBoard(): BoardResponseDto {
@@ -60,8 +60,8 @@ class GameService(
                 TileDto("${row}8", FigureDto(FigureColor.BLACK, figure))
             }
         for (i in 'a'..'h') {
-            tiles += TileDto("${i}7", FigureDto(FigureColor.BLACK, FigureType.PAWN))
-            tiles += TileDto("${i}2", FigureDto(FigureColor.WHITE, FigureType.PAWN))
+            tiles += TileDto("${i}7", FigureDto(FigureColor.BLACK, PieceType.PAWN))
+            tiles += TileDto("${i}2", FigureDto(FigureColor.WHITE, PieceType.PAWN))
         }
         tiles +=
             figureLayout.map { (row, figure) ->
@@ -76,7 +76,7 @@ class GameService(
     }
 
     fun startGame(login: String, request: LobbyRequestDto): CreatedLobbyResponseDto {
-        val user = userRepository.findByLoginOrThrow(login)
+        val user = userRepository.doFindByLogin(login)
         if (request.opponent == Opponent.BOT) {
             val opponent = userRepository.findTop1ByBotIsTrue() ?: throw BotNotFoundException()
 
@@ -99,7 +99,7 @@ class GameService(
     }
 
     fun joinSession(login: String, sessionId: Long): SimpleSessionResponseDto {
-        val user = userRepository.findByLoginOrThrow(login)
+        val user = userRepository.doFindByLogin(login)
         val session = sessionRepository.findByIdOrThrow(sessionId)
         if (session.status != SessionStatus.OPEN) {
             throw SessionNotOpenedException(sessionId)
