@@ -4,4 +4,5 @@ TRUNCATE TABLE
     figure,
     session_history,
     game,
+    piece,
     session_message;

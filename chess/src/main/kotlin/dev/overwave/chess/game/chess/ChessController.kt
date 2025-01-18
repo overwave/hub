@@ -11,5 +11,5 @@ class ChessController(
     private val chessService: ChessService,
 ) {
     @PutMapping("/start")
-    fun startGame(): Any = chessService.startGame()
+    fun startGame(): ChessBoard = chessService.startGame()
 }

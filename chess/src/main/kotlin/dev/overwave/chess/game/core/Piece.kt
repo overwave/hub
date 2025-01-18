@@ -1,7 +1,8 @@
 package dev.overwave.chess.game.core
 
+import dev.overwave.chess.dto.Side
 import dev.overwave.chess.model.LongGenAud
-import dev.overwave.chess.model.User
+import dev.overwave.chess.service.PieceType
 import jakarta.persistence.Entity
 import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
@@ -9,18 +10,19 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import org.hibernate.annotations.JdbcType
 import org.hibernate.dialect.PostgreSQLEnumJdbcType
-import java.time.Instant
 
 @Entity
-class Game(
+class Piece(
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "white_player_id")
-    var whitePlayer: User,
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "black_player_id")
-    var blackPlayer: User,
+    @JoinColumn(name = "game_id")
+    val game: Game,
+    var taken: Boolean = false,
+    var promoted: Boolean = false,
+    var position: String,
     @Enumerated
     @JdbcType(PostgreSQLEnumJdbcType::class)
-    var status: GameStatus,
-    var finishedAt: Instant?,
+    var type: PieceType,
+    @Enumerated
+    @JdbcType(PostgreSQLEnumJdbcType::class)
+    var side: Side,
 ) : LongGenAud()

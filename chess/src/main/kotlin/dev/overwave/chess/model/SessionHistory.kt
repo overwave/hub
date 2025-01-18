@@ -1,6 +1,6 @@
 package dev.overwave.chess.model
 
-import dev.overwave.chess.service.FigureType
+import dev.overwave.chess.service.PieceType
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -19,6 +19,6 @@ class SessionHistory(
     val file: String,
     val rank: Int,
     @Enumerated(EnumType.STRING)
-    val type: FigureType,
+    val type: PieceType,
     val taken: Boolean,
 ) : LongGenAud()
