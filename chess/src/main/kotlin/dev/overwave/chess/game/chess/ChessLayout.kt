@@ -1,6 +1,7 @@
 package dev.overwave.chess.game.chess
 
 import dev.overwave.chess.dto.Side
+import dev.overwave.chess.game.dto.Position
 import dev.overwave.chess.service.PieceType
 import org.springframework.stereotype.Repository
 

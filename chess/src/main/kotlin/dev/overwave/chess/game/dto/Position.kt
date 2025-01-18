@@ -1,4 +1,4 @@
-package dev.overwave.chess.game.chess
+package dev.overwave.chess.game.dto
 
 data class Position(
     val x: Int,

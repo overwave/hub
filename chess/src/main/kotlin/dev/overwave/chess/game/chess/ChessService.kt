@@ -1,5 +1,6 @@
 package dev.overwave.chess.game.chess
 
+import dev.overwave.chess.game.chess.dto.ChessBoard
 import dev.overwave.chess.game.core.Game
 import dev.overwave.chess.game.core.GameRepository
 import dev.overwave.chess.game.core.GameStatus
