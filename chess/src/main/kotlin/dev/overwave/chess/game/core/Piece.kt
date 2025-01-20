@@ -1,8 +1,11 @@
 package dev.overwave.chess.game.core
 
 import dev.overwave.chess.dto.Side
+import dev.overwave.chess.game.dto.Position
+import dev.overwave.chess.game.dto.toPosition
 import dev.overwave.chess.model.LongGenAud
 import dev.overwave.chess.service.PieceType
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
@@ -13,16 +16,32 @@ import org.hibernate.dialect.PostgreSQLEnumJdbcType
 
 @Entity
 class Piece(
+    //
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     val game: Game,
+    //
     var taken: Boolean = false,
+    //
     var promoted: Boolean = false,
-    var position: String,
+    //
+    position: Position,
+    //
     @Enumerated
     @JdbcType(PostgreSQLEnumJdbcType::class)
     var type: PieceType,
+    //
     @Enumerated
     @JdbcType(PostgreSQLEnumJdbcType::class)
     var side: Side,
-) : LongGenAud()
+    //
+) : LongGenAud() {
+    var position: Position
+        get() = positionRaw.toPosition()
+        set(value) {
+            positionRaw = value.toString()
+        }
+
+    @Column(name = "position")
+    private var positionRaw: String = position.toString()
+}

@@ -1,0 +1,168 @@
+{
+  "gameId": 1,
+  "turningSide": "WHITE",
+  "chessBoard": {
+    "pieces": [
+      {
+        "position": "a1",
+        "type": "ROOK",
+        "side": "WHITE"
+      },
+      {
+        "position": "b1",
+        "type": "KNIGHT",
+        "side": "WHITE"
+      },
+      {
+        "position": "c1",
+        "type": "BISHOP",
+        "side": "WHITE"
+      },
+      {
+        "position": "d1",
+        "type": "QUEEN",
+        "side": "WHITE"
+      },
+      {
+        "position": "e1",
+        "type": "KING",
+        "side": "WHITE"
+      },
+      {
+        "position": "f1",
+        "type": "BISHOP",
+        "side": "WHITE"
+      },
+      {
+        "position": "g1",
+        "type": "KNIGHT",
+        "side": "WHITE"
+      },
+      {
+        "position": "h1",
+        "type": "ROOK",
+        "side": "WHITE"
+      },
+      {
+        "position": "a2",
+        "type": "PAWN",
+        "side": "WHITE"
+      },
+      {
+        "position": "b2",
+        "type": "PAWN",
+        "side": "WHITE"
+      },
+      {
+        "position": "c2",
+        "type": "PAWN",
+        "side": "WHITE"
+      },
+      {
+        "position": "d2",
+        "type": "PAWN",
+        "side": "WHITE"
+      },
+      {
+        "position": "e2",
+        "type": "PAWN",
+        "side": "WHITE"
+      },
+      {
+        "position": "f2",
+        "type": "PAWN",
+        "side": "WHITE"
+      },
+      {
+        "position": "g2",
+        "type": "PAWN",
+        "side": "WHITE"
+      },
+      {
+        "position": "h2",
+        "type": "PAWN",
+        "side": "WHITE"
+      },
+      {
+        "position": "a7",
+        "type": "PAWN",
+        "side": "BLACK"
+      },
+      {
+        "position": "b7",
+        "type": "PAWN",
+        "side": "BLACK"
+      },
+      {
+        "position": "c7",
+        "type": "PAWN",
+        "side": "BLACK"
+      },
+      {
+        "position": "d7",
+        "type": "PAWN",
+        "side": "BLACK"
+      },
+      {
+        "position": "e7",
+        "type": "PAWN",
+        "side": "BLACK"
+      },
+      {
+        "position": "f7",
+        "type": "PAWN",
+        "side": "BLACK"
+      },
+      {
+        "position": "g7",
+        "type": "PAWN",
+        "side": "BLACK"
+      },
+      {
+        "position": "h7",
+        "type": "PAWN",
+        "side": "BLACK"
+      },
+      {
+        "position": "a8",
+        "type": "ROOK",
+        "side": "BLACK"
+      },
+      {
+        "position": "b8",
+        "type": "KNIGHT",
+        "side": "BLACK"
+      },
+      {
+        "position": "c8",
+        "type": "BISHOP",
+        "side": "BLACK"
+      },
+      {
+        "position": "d8",
+        "type": "QUEEN",
+        "side": "BLACK"
+      },
+      {
+        "position": "e8",
+        "type": "KING",
+        "side": "BLACK"
+      },
+      {
+        "position": "f8",
+        "type": "BISHOP",
+        "side": "BLACK"
+      },
+      {
+        "position": "g8",
+        "type": "KNIGHT",
+        "side": "BLACK"
+      },
+      {
+        "position": "h8",
+        "type": "ROOK",
+        "side": "BLACK"
+      }
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 package dev.overwave.chess.game.chess
 
+import dev.overwave.chess.game.chess.dto.ChessPiece
 import dev.overwave.chess.game.core.Piece
 import org.springframework.stereotype.Component
 
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Component
 class PieceMapper {
     fun toChessPiece(piece: Piece): ChessPiece {
         assert(piece.type.chess) { "Piece type must be chess, ${piece.type} providen" }
-        val position = piece.position.toPosition()
+        val position = piece.position
         assert(position.x < 9 && position.y < 9) { "Position must be in range [1, 8]" }
 
         return ChessPiece(
