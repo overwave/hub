@@ -1,6 +1,5 @@
 package dev.overwave.chess.game.chess
 
-import dev.overwave.chess.game.chess.dto.ChessBoard
 import dev.overwave.chess.game.chess.dto.ChessGame
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PutMapping
@@ -14,4 +13,7 @@ class ChessController(
 ) {
     @PutMapping("/start")
     fun startGame(): ChessGame = chessService.startGame()
+
+    @PutMapping("/turn")
+    fun makeTurn(): ChessGame = chessService.makeTurn()
 }

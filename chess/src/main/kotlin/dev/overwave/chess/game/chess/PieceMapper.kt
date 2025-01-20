@@ -2,7 +2,6 @@ package dev.overwave.chess.game.chess
 
 import dev.overwave.chess.game.chess.dto.ChessPiece
 import dev.overwave.chess.game.core.Piece
-import dev.overwave.chess.game.dto.toPosition
 import org.springframework.stereotype.Component
 
 @Component

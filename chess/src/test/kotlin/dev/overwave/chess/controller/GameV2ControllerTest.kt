@@ -7,6 +7,7 @@ import dev.overwave.chess.game.core.GameStatus
 import dev.overwave.chess.misc.FunctionalTest
 import dev.overwave.chess.misc.TestUserFactory
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
@@ -31,10 +32,32 @@ class GameV2ControllerTest(
             }.andExpect {
                 status { isOk() }
                 content { contentType(MediaType.APPLICATION_JSON) }
-                content { compareJson("/game/v2/start/response_with_player.json") }
+                content { compareJson("/game/v2/start/response.json") }
             }
 
         val game = gameRepository.findAll().single()
         assertThat(game.status).isEqualTo(GameStatus.WHITES_TURN)
+    }
+
+    @Test
+    @Disabled
+    fun `make a turn`() {
+        userFactory.createUser("user")
+        mockMvc
+            .put("/chess/api/game/v2/start") {
+                content = mapper.writeValueAsString(object {})
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }
+        mockMvc
+            .put("/chess/api/game/v2/turn") {
+                content = mapper.writeValueAsString(object {})
+                contentType = MediaType.APPLICATION_JSON
+                with(csrf())
+            }.andExpect {
+                status { isOk() }
+                content { contentType(MediaType.APPLICATION_JSON) }
+                content { compareJson("/game/v2/turn/response.json") }
+            }
     }
 }
