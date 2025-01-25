@@ -1,5 +1,5 @@
 {
-  "gameId": 2,
+  "gameId": "{gameId}",
   "turningSide": "BLACK",
   "chessBoard": {
     "pieces": [
@@ -44,7 +44,7 @@
         "side": "WHITE"
       },
       {
-        "position": "a4",
+        "position": "a2",
         "type": "PAWN",
         "side": "WHITE"
       },
@@ -59,7 +59,7 @@
         "side": "WHITE"
       },
       {
-        "position": "d2",
+        "position": "d4",
         "type": "PAWN",
         "side": "WHITE"
       },
